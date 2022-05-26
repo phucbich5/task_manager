@@ -15,16 +15,16 @@
             <thead class="20 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-4 py-3">
-                        Name
+                        Step Name
                     </th>
                     <th scope="col" class="px-4 py-3">
-                        Task_id
+                        Task Name
                     </th>
                     <th scope="col" class="px-4 py-3">
                         Status
                     </th>
                     <th scope="col" class="px-4 py-3">
-                        Assigned_to
+                        Person in Charge
                     </th>
                     <th scope="col" class="px-4 py-3 text-center">
                         Description
@@ -42,16 +42,14 @@
                         </td>
                         <td class="px-4 py-4 ">
                            
-                            {{-- {{ $st->task_info->name }}   --}}
-                            {{ $st->task_id }}
+                            {{ $st->task_info->name }}  
                         </td>
 
                         <td class="px-4 py-4 ">
                             {{ $st->status }}
                         </td>
                         <td class="px-4 py-4 ">
-                            {{-- {{ $st->assigned_user->name }}  --}}
-                            {{ $st->assigned_to }}
+                            {{ $st->assigned_user->name }} 
                         </td>
                         <td class="px-4 py-4 "> 
                             {{ $st->description }}

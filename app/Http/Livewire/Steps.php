@@ -17,13 +17,17 @@ class Steps extends Component
 
     public function render()
     {
-            $this->users = DB::table('users')->get();
-            $this->tasks = Task::with('assigned_user')->get();   
-            $this->steps = Step::with('task_info')->get();
-            // $steps  = Step::with('assigned_user', 'task_info')->get();
-            // dd($steps);
-            return view('steps.index');
-        
+        $this->users = DB::table('users')->get();
+        $this->tasks = Task::with('assigned_user')->get();
+        $this->steps = Step::with('task_info')->get();
+        // $steps = DB::table('steps')
+        //     ->leftjoin('tasks', 'steps.task_id', '=', 'tasks.id')
+        //     ->leftjoin('users', 'steps.task_id', '=', 'users.id')
+        //     ->select('steps.*','tasks.name')->get();
+
+        // $steps  = Step::with('assigned_user', 'task_info')->get();
+        // dd($steps);
+        return view('steps.index');
     }
 
     public function clearInput()
