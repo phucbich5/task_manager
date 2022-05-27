@@ -43,9 +43,9 @@ Route::get('/view-task/', function(){
 })->middleware(['auth']);
 
 
-Route::get('/steps',[RouteController::class,'steps']);
-Route::get('/users',[RouteController::class,'users']);
-Route::get('/tasks',[RouteController::class,'tasks']);
+Route::get('/steps',[RouteController::class,'steps'])->middleware(['auth']);
+Route::get('/users',[RouteController::class,'users'])->middleware(['auth']);
+Route::get('/tasks',[RouteController::class,'tasks'])->middleware(['auth']);
 
 
 

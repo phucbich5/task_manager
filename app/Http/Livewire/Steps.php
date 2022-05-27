@@ -8,26 +8,46 @@ use App\Models\User;
 use App\Models\Task;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+// use Illuminate\Auth\Middleware\Authorize;
+use Auth;
+
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 
 class Steps extends Component
 {
     public $name, $task_id, $status, $assigned_to, $description;
     public $updateMode = false;
     // public $steps;
+    use AuthorizesRequests;
 
-    public function render()
+    public function render(Request $request)
     {
-        $this->users = DB::table('users')->get();
-        $this->tasks = Task::with('assigned_user')->get();
-        $this->steps = Step::with('task_info')->get();
-        // $steps = DB::table('steps')
-        //     ->leftjoin('tasks', 'steps.task_id', '=', 'tasks.id')
-        //     ->leftjoin('users', 'steps.task_id', '=', 'users.id')
-        //     ->select('steps.*','tasks.name')->get();
+        if (Gate::allows('isAdmin')) {
+            $users = DB::table('users')->get();
+            $tasks = Task::with('assigned_user')->get();
+            $steps = Step::with('task_info')->get();
+            return view('steps.index', compact('users', 'tasks', 'steps'));
+        } else {
+            $users = DB::table('users')->get();
+            $tasks = Task::with('assigned_user')->get();
 
-        // $steps  = Step::with('assigned_user', 'task_info')->get();
-        // dd($steps);
-        return view('steps.index');
+            $steps = Step::with('task_info')->where('assigned_to', Auth::user()->id)->get();
+            // $steps = DB::table('steps')
+            //     ->leftjoin('tasks', 'steps.task_id', '=', 'tasks.id')
+            //     ->leftjoin('users', 'steps.task_id', '=', 'users.id')
+            //     ->select('steps.*','tasks.name')->get();
+
+            // $steps  = Step::with('assigned_user', 'task_info')->get();
+            // dd($steps);
+            // if ($this->user()->can('grantview', $steps)) {
+            //     abort(403);
+            // }
+
+
+            // $this->authorize($users,$tasks,$steps,'grantview');
+            return view('steps.index', compact('users', 'tasks', 'steps'));
+        }
     }
 
     public function clearInput()
@@ -50,6 +70,7 @@ class Steps extends Component
             'status' => $this->status,
             'description' => $this->description
         ]);
+
         $this->clearInput();
     }
 
@@ -69,6 +90,7 @@ class Steps extends Component
     {
 
         $step_info = Step::find($this->step_id);
+
         $step_info->update([
             'name' => $this->name,
             'task_id' => $this->task_id,
@@ -76,6 +98,7 @@ class Steps extends Component
             'description' => $this->description,
             'status' => $this->status
         ]);
+        $this->authorize('update', $step_info);
         $this->clearInput();
     }
 }

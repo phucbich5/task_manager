@@ -20,6 +20,7 @@ class Step extends Model
 
     public function task_info()
     {
+        // fix here   
         return $this->belongsTo('App\Models\Task', 'task_id', 'id');
     }
 }

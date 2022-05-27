@@ -1,12 +1,13 @@
 <div class="container mx-auto tab_content">
     <div class="flex items-center justify-between mb-5 content_header">
         <h1 class="text-3xl font-bold text-blue-600">STEPS</h1>
-        <button
-            class="px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            type="button" data-modal-toggle="step-modal">
-            Add
-        </button>
-
+        @can('isAdmin')
+            <button
+                class="px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                type="button" data-modal-toggle="step-modal">
+                Add
+            </button>
+        @endcan
     </div>
 
     @include('steps.create')
@@ -41,17 +42,17 @@
                             {{ $st->name }}
                         </td>
                         <td class="px-4 py-4 ">
-                           
-                            {{ $st->task_info->name }}  
+
+                            {{ $st->task_info->name }}
                         </td>
 
                         <td class="px-4 py-4 ">
                             {{ $st->status }}
                         </td>
                         <td class="px-4 py-4 ">
-                            {{ $st->assigned_user->name }} 
+                            {{ $st->assigned_user->name }}
                         </td>
-                        <td class="px-4 py-4 "> 
+                        <td class="px-4 py-4 ">
                             {{ $st->description }}
                         </td>
 
@@ -73,7 +74,7 @@
                             <a href="/view-task/?id={{ $st->id }}" class="text-blue-500"
                                 wire:click="edit({{ $st->id }})">
                                 View
-                            </a>
+                            </a>    
                         </div> --}}
                             </div>
 

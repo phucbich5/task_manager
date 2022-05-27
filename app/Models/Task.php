@@ -13,6 +13,7 @@ class Task extends Model
     ];
 
     public function steps(){
+        // fix here
         return $this->hasMany('App\Models\Step','task_id');
     }
     public function assigned_user(){

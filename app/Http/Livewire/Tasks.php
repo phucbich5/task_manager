@@ -9,6 +9,8 @@ use App\Models\User;
 use App\Models\Step;
 use App\Http\Livewire\Viewtasks;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Auth;
 
 class Tasks extends Component
 {
@@ -30,17 +32,23 @@ class Tasks extends Component
 
     public $inputs = [];
     public $i = 0;
-
-
-
-
-
     public function render()
     {
-        $this->tasks = Task::orderBy('deadline', 'asc')->get();
-        $this->users = User::all();
-        $count_task = DB::table('tasks')->count();
-        return view('tasks.index');
+        if (Gate::allows('isAdmin')) {
+            $this->users = DB::table('users')->get();
+            $this->tasks = DB::table('tasks')->orderBy('deadline', 'asc')->get();
+            return view('tasks.index');
+        } else {
+
+            $this->users = DB::table('users')->get();
+            $this->tasks = DB::table('tasks')
+                ->join('steps', 'tasks.id', '=', 'steps.task_id')
+                ->select('tasks.*')
+                ->where('assigned_to', Auth::user()->id)
+                ->orderBy('deadline', 'asc')
+                ->get();
+            return view('tasks.index');
+        }
     }
 
     public function clearInput()
