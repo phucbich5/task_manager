@@ -6,6 +6,11 @@ use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Illuminate\Http\Request;
+
 class Users extends Component
 {
 
@@ -15,10 +20,15 @@ class Users extends Component
 
     public function render()
     {
-        $this->users = User::all();
-        return view('user.index');
+        $users = DB::table('users')->paginate(10);
+        return view('user.index',compact('users'));
     }
 
+    // public function count_user(){    
+    //     $count_user = DB::table('users')->count();
+       
+    //     return view('components.sidebar',compact('count_user'));
+    // }
     public function clearInput()
     {
         $this->name = '';
@@ -32,16 +42,41 @@ class Users extends Component
     public function store()
     {
 
+        $this->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'role'=>'required',
+            'status' => 'required',
+        ]);
+        $password = Str::random(21);
 
+       
         User::create([
             'name' => $this->name,
             'email' => $this->email,
             'role' => $this->role,
             'status' => $this->status,
-            'password' => Hash::make($this->password),
+            // 'password' => Hash::make($this->password),
+            'password' => Hash::make($password),
         ]);
+
+
+
+        $details = [
+            'username' => $this->email,
+            'password' => $password
+        ];
+
+        Mail::to($this->email)->send(new \App\Mail\SendMail($details));
+
+
+
+
         $this->clearInput();
+
+      
     }
+    
 
     public function edit($id)
     {
@@ -69,6 +104,8 @@ class Users extends Component
             'status' => $this->status,
             'password' => $this->password
         ]);
+
+      
 
         $this->clearInput();
     }

@@ -9,7 +9,7 @@ class Step extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'description', 'assigned_to', 'status', 'task_id'
+        'name', 'description', 'assigned_to', 'status', 'task_id','deadline'
     ];
 
 

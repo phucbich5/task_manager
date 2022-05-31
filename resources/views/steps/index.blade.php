@@ -3,7 +3,7 @@
         <h1 class="text-3xl font-bold text-blue-600">STEPS</h1>
         @can('isAdmin')
             <button
-                class="px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                class="px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"style="background: #205081;"
                 type="button" data-modal-toggle="step-modal">
                 Add
             </button>
@@ -13,7 +13,7 @@
     @include('steps.create')
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg table_content">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-            <thead class="20 text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+            <thead class="20 text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
                     <th scope="col" class="px-4 py-3">
                         Step Name
@@ -27,8 +27,11 @@
                     <th scope="col" class="px-4 py-3">
                         Person in Charge
                     </th>
-                    <th scope="col" class="px-4 py-3 text-center">
+                    <th scope="col" class="px-4 py-3">
                         Description
+                    </th>
+                    <th scope="col" class="px-4 py-3">
+                        Deadline
                     </th>
                     <th scope="col" class="px-4 py-3 text-center">
                         Action
@@ -42,7 +45,6 @@
                             {{ $st->name }}
                         </td>
                         <td class="px-4 py-4 ">
-
                             {{ $st->task_info->name }}
                         </td>
 
@@ -55,27 +57,18 @@
                         <td class="px-4 py-4 ">
                             {{ $st->description }}
                         </td>
+                        <td class="px-4 py-4 ">
+                            {{ $st->deadline }}
+                        </td>
 
                         <td class="px-4 py-4 text-center">
-                            <div class="flex items-center">
-                                {{-- <div class="px-2">
-                            <button type="button" class="text-blue-500" data-modal-toggle="stepsModal"
-                                wire:click="addStep({{ $st->id }})">
-                                <i class="fa-brands fa-nfc-symbol"></i>
-                            </button>
-                        </div> --}}
+                            <div class="flex items-center justify-center">
                                 <div class="px-2">
-                                    <button type="button" class="text-blue-500" data-modal-toggle="step-modal"
+                                    <button type="button" class="text-red-600" data-modal-toggle="step-modal"
                                         wire:click="edit({{ $st->id }})">
-                                        Edit
+                                        <i class="fa-solid fa-pen-to-square"></i>
                                     </button>
                                 </div>
-                                {{-- <div class="px-2">
-                            <a href="/view-task/?id={{ $st->id }}" class="text-blue-500"
-                                wire:click="edit({{ $st->id }})">
-                                View
-                            </a>    
-                        </div> --}}
                             </div>
 
                         </td>
@@ -83,6 +76,9 @@
                 @endforeach
             </tbody>
         </table>
+       
     </div>
-
+    <div class="flex justify-center my-5">
+        {{ $steps->links() }}
+    </div>
 </div>

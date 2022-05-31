@@ -10,6 +10,8 @@ use App\Models\Step;
 use App\Http\Livewire\Viewtasks;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Http\Request;
+
 use Auth;
 
 class Tasks extends Component
@@ -24,7 +26,7 @@ class Tasks extends Component
     public $updateMode = false;
 
 
-    public $step_name, $step_order, $step_task_id, $step_status, $assigned_to, $step_description;
+    public $step_name, $step_order, $step_task_id, $step_status, $assigned_to, $step_description, $step_deadline;
 
     public $step_id;
     public $stepUpdateMode = false;
@@ -36,7 +38,8 @@ class Tasks extends Component
     {
         if (Gate::allows('isAdmin')) {
             $this->users = DB::table('users')->get();
-            $this->tasks = DB::table('tasks')->orderBy('deadline', 'asc')->get();
+            $this->tasks = DB::table('tasks')->orderBy('deadline', 'asc')
+            ->get();
             return view('tasks.index');
         } else {
 
@@ -63,6 +66,12 @@ class Tasks extends Component
 
     public function store()
     {
+        $this->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'deadline'=>'required',
+            'status' => 'required'
+        ]);
         Task::create([
             'name' => $this->name,
             'description' => $this->description,
@@ -103,7 +112,14 @@ class Tasks extends Component
     public function addStep($id)
     {
 
-
+        // $request->validate([
+        //     'name' => 'required',
+        //     'task_id' => 'required',
+        //     'assigned_to' => 'required',
+        //     'status' => 'required', 
+        //     'description' => 'required',
+        //     'deadline' => 'required',
+        // ]);
         $task_info = Task::find($id);
         $this->step_id = $task_info->id;
         $this->step_name = $task_info->name;
@@ -135,15 +151,24 @@ class Tasks extends Component
         $this->updateMode = false;
     }
 
-    public function createStep()
+    public function createStep(Request $request)
     {
+        // $request->validate([
+        //     'name' => 'required',
+        //     'task_id' => 'required',
+        //     'assigned_to'=>'required',
+        //     'status' => 'required',
+        //     'description' => 'required',
+        //     'deadline' => 'required',
+        // ]);
         foreach ($this->step_name as $key => $value) {
             Step::create([
                 'name' => $this->step_name[$key],
                 'status' => $this->step_status[$key],
                 'task_id' => $this->step_id,
                 'assigned_to' => $this->assigned_to[$key],
-                'description' => $this->description[$key]
+                'description' => $this->description[$key],
+                'deadline' => $this->deadline
             ]);
         }
 
@@ -164,13 +189,5 @@ class Tasks extends Component
 
         // dd($steps);
         return view('tasks.show', compact('tasks', 'steps'));
-    }
-    public function editStep()
-    {
-    }
-
-
-    public function mark_status_complete($task_id, $step_id)
-    {
     }
 }

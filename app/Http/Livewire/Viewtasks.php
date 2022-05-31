@@ -63,7 +63,7 @@ class Viewtasks extends Component
 
             // return view('tasks.index',compact('tasks'));
         } else {
-            echo 'ngu';
+            // echo 'ngu';
         }
     }
 

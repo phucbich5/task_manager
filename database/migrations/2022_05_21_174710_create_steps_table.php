@@ -20,6 +20,7 @@ class CreateStepsTable extends Migration
             $table->enum('status',['not started','progress','review','completed'])->default('not started');
             $table->string('assigned_to');
             $table->string('description');
+            $table->datetime('deadline');
             $table->timestamps();
         });
     }

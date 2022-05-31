@@ -1,9 +1,12 @@
 <?php
 
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Livewire\Tasks;
 use App\Http\Controllers\RouteController;
 use App\Http\Livewire\Viewtasks;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -38,15 +41,14 @@ Route::get('/dashboard', function () {
 
 
 // Route::get('/view-task/{id}', [RouteController::class, 'ViewTask'])->middleware(['auth']);
-Route::get('/view-task/', function(){
+Route::get('/view-task/', function () {
     return view('show_task');
 })->middleware(['auth']);
 
 
-Route::get('/steps',[RouteController::class,'steps'])->middleware(['auth']);
-Route::get('/users',[RouteController::class,'users'])->middleware(['auth']);
-Route::get('/tasks',[RouteController::class,'tasks'])->middleware(['auth']);
+Route::get('/steps', [RouteController::class, 'steps'])->middleware(['auth']);
+Route::get('/users', [RouteController::class, 'users'])->middleware(['auth']);
+Route::get('/tasks', [RouteController::class, 'tasks'])->middleware(['auth']);
 
 
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';

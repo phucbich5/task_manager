@@ -1,5 +1,5 @@
 <div class="relative" style="height:auto">
-    
+
     <div class="container mx-auto py-5 pl-20">
         <div class="mx-auto w-full py-10">
             <h1 class="text-3xl font-bold">Task name: <span class="text-blue-500">{{ $task->name }}</span></h1>
@@ -17,53 +17,31 @@
                         <h3 class="flex items-center mb-1 text-lg font-semibold text-gray-900 dark:text-white">
                             {{ $step->name }}
                             <span
-                                class="text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3">
+                                class="text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-blue-200 dark:text-blue-800 ml-3 flex">
                                 @if ($step->status == 'review')
-                                    <select class="p-1 text-xs text-white bg-purple-400 rounded-md px-10 border-0"
-                                        name="status">
-                                        <option value="not started">not started</option>
-                                        <option value="progress">progress</option>
-                                        <option value="complete">complete</option>
-                                        <option value="review" selected>review</option>
-                                    </select>
+                                    <p class="p-1 text-xs text-white bg-purple-400 rounded-md px-10 border-0"
+                                        name="status">review
+                                    </p>
 
                                     <span class="ml-2 text-green-500"
                                         wire.click="mark_status_complete({{ $step->task_id, $step->id }})"><i
                                             class="fas fa-check"></i></span>
                                 @elseif ($step->status == 'completed')
-                                    <select class="p-1 text-xs text-white bg-blue-400 rounded-md px-10 border-0"
-                                        name="status">
-                                        <option value="not started">not started</option>
-                                        <option value="progress">progress</option>
-                                        <option value="complete" selected>complete</option>
-                                        <option value="review">review</option>
-                                    </select>
+                                    <p class="p-1 text-xs text-white bg-blue-400 rounded-md px-10 border-0"
+                                        name="status">complete
+                                    </p>
                                 @elseif($step->status == 'progress')
-                                    <select class="p-1 text-xs text-white bg-yellow-500 rounded-md px-10 border-0"
-                                        name="status">
-                                        <option value="not started">not started</option>
-                                        <option value="progress" selected>progress</option>
-                                        <option value="complete">complete</option>
-                                        <option value="review">review</option>
-                                    </select>
-                                    {{-- <span class="ml-2 text-green-500" wire.click="mark_status_complete({{$step->task_id,$step->id}})"><i class="fas fa-check"></i></span> --}}
+                                    <p class="p-1 text-xs text-white bg-yellow-500 rounded-md px-10 border-0"
+                                        name="status">progress
+                                    </p>
                                 @elseif($step->status == 'cancelled')
-                                    <select class="p-1 text-xs text-white bg-green-500 rounded-md px-10 border-0"
-                                        name="status">
-                                        <option value="not started">not started</option>
-                                        <option value="progress">progress</option>
-                                        <option value="complete" selected>complete</option>
-                                        <option value="review">review</option>
-                                    </select>
-                                    {{-- <span class="ml-2 text-green-500" wire.click="mark_status_complete({{$step->task_id,$step->id}})"><i class="fas fa-check"></i></span> --}}
+                                    <p class="p-1 text-xs text-white bg-green-500 rounded-md px-10 border-0"
+                                        name="status">complete
+                                    </p>
                                 @elseif($step->status == 'not started')
-                                    <select class="p-1 text-xs text-white bg-red-400 rounded-md px-10 border-0"
-                                        name="status">
-                                        <option value="not started" selected>not started</option>
-                                        <option value="progress">progress</option>
-                                        <option value="complete">complete</option>
-                                        <option value="review">review</option>
-                                    </select>
+                                    <p class="p-1 text-xs text-white bg-red-400 rounded-md px-10 border-0"
+                                        name="status">not started
+                                    </p>
                                     <button class="ml-2 text-green-500" type="button"
                                         wire:click="changestatus({{ $step->id }})"><i
                                             class="fas fa-check"></i></button>
@@ -72,10 +50,9 @@
                         </h3>
                         <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
                             <span class="mr-2 text-blue-300"><i class="fas fa-user"></i></span>
-                            
-                            {{($step->assigned_user->name)}}
-                            {{-- {{ $step->assigned_users }} --}}
-                            
+
+                            {{ $step->assigned_user->name }}
+
                         </p>
                         <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
                             {{ $step->description }}</p>
@@ -92,4 +69,3 @@
 
 
 </div>
-

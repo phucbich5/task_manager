@@ -23,7 +23,11 @@
         integrity="sha512-wnea99uKIC3TJF7v4eKk4Y+lMz2Mklv18+r4na2Gn1abDRPPOeef95xTzdwGD9e6zXJBteMIhZ1+68QC5byJZw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="css/style.css">
-
+    <style>
+        .text-white{
+            color: #fff;
+        }
+    </style>
 
     <script src="{{ asset('js/app.js') }}" defer></script>
     @livewireStyles
@@ -31,11 +35,11 @@
 
 <body class="font-sans antialiased">
     @include('layouts.navigation')
-    <main style="background: #f3f4f6;">
+    <main style="background: #205081;padding-bottom:100px">
         <div class="container mx-auto">
             <div class="flex h-full">
                 <div class="bg-white" style="min-height:1000px">
-                    <x-sidebar />
+                    @livewire('sidebar')
                 </div>
                 <div class="bg-white w-full">
                    {{$slot}}
