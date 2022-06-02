@@ -2,9 +2,7 @@
 
 use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Livewire\Tasks;
 use App\Http\Controllers\RouteController;
-use App\Http\Livewire\Viewtasks;
 use Illuminate\Support\Facades\Mail;
 
 /*
@@ -49,6 +47,7 @@ Route::get('/view-task/', function () {
 Route::get('/steps', [RouteController::class, 'steps'])->middleware(['auth']);
 Route::get('/users', [RouteController::class, 'users'])->middleware(['auth']);
 Route::get('/tasks', [RouteController::class, 'tasks'])->middleware(['auth']);
-
+Route::get('/alltasks', [RouteController::class, 'alltasks'])->middleware(['auth']);
+Route::get('/allsteps', [RouteController::class, 'allsteps'])->middleware(['auth']);
 
 require __DIR__ . '/auth.php';

@@ -49,13 +49,17 @@
                             </span>
                         </h3>
                         <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-                            <span class="mr-2 text-blue-300"><i class="fas fa-user"></i></span>
+                            <span class="mr-2 text-blue-500"><i class="fas fa-user"></i></span>
 
                             {{ $step->assigned_user->name }}
 
                         </p>
                         <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-                            {{ $step->description }}</p>
+                            <i class="fa-solid fa-book text-blue-500 mr-2"></i>{{ $step->description }}
+                        </p>
+                        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
+                            <i class="fas fa-clock text-blue-500 mr-2"></i>{{ $step->deadline }}
+                        </p>
                     </li>
                 @endforeach
             @else

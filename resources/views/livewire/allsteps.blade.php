@@ -1,10 +1,10 @@
 <div class="container mx-auto tab_content">
     <div class="flex items-center justify-between mb-5 content_header">
-        <h1 class="text-3xl font-bold text-blue-600">STEPS</h1>
+        <h1 class="text-3xl font-bold text-blue-600">ALL STEPS</h1>
 
         <div class="flex items-center">
 
-            
+
             @livewire('countstep')
             @can('isAdmin')
                 <button
@@ -46,7 +46,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($steps as $st)
+                @foreach ($steps_all as $st)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-4 py-4 ">
                             {{ $st->name }}
@@ -93,14 +93,14 @@
                         </td>
 
                         <td class="px-4 py-4 text-center">
-                            <div class="flex items-center justify-center">
-                                <div class="px-2">
-                                    <button type="button" class="text-red-600" data-modal-toggle="step-modal"
-                                        wire:click="edit({{ $st->id }})">
-                                        <i class="fa-solid fa-pen-to-square"></i>
-                                    </button>
-                                </div>
-                            </div>
+                                <div class="flex items-center justify-center">
+                                    <div class="px-2">
+                                        <button type="button" class="text-red-600" data-modal-toggle="step-modal"
+                                            wire:click="edit({{ $st->id }})">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+                                    </div>
+                                </div>  
 
                         </td>
                     </tr>
@@ -110,6 +110,6 @@
 
     </div>
     <div class="flex justify-center my-5">
-        {{ $steps->links() }}
+        {{ $steps_all->links() }}
     </div>
 </div>

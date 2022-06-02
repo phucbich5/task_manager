@@ -1,7 +1,7 @@
 <!-- Main modal -->
 <div id="step-modal" wire:ignore.self tabindex="-1" aria-hidden="true"
     class="fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-    <div class="relative w-full h-full max-w-md p-4 md:h-auto h_form">
+    <div class="relative w-full h-full max-w-2xl p-4 md:h-auto h_form">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
             <div class="w-full flex justify-between items-center px-10 py-5 border-b text-white bg-blue-600 rounded-t-lg">
@@ -61,7 +61,8 @@
                         @enderror
                     </div>
                     @can('isAdmin')
-                        <div>
+                    <div class="flex">
+                        <div class="mr-1 w-1/2">
                             <label for="task_id"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Task Name</label>
                             <select id="task_id" wire:model.defer="task_id"
@@ -75,7 +76,7 @@
                                 <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
-                        <div>
+                        <div class="ml-1 w-1/2">
                             <label for="assigned_to"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                 Assigned to
@@ -91,6 +92,8 @@
                                 <span class="text-red-500 text-xs">{{ $message }}</span>
                             @enderror
                         </div>
+                    </div>
+                        
                         <div>
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description</label>
@@ -113,10 +116,10 @@
                     @endcan
                     @if ($updateMode)
                         <button type="submit" wire:click.prevent="update"
-                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
+                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Update</button>
                     @else
                         <button type="submit" wire:click.prevent="store"
-                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
+                            class="w-full text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-md px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Add</button>
                     @endif
 
                 </form>

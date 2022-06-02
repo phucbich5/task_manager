@@ -1,4 +1,4 @@
 
 <x-app-layout>
-    @livewire('viewtasks')
+    @livewire('allsteps')
 </x-app-layout>

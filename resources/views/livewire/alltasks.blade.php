@@ -1,6 +1,6 @@
 <div class="container mx-auto tab_content">
     <div class="flex items-center justify-between mb-5 content_header">
-        <h1 class="text-3xl font-bold text-blue-600">TASKS</h1>
+        <h1 class="text-3xl font-bold text-blue-600">All TASKS</h1>
         <div class="flex items-center">
         @livewire('counttask')
         @can('isAdmin')
@@ -12,8 +12,8 @@
         @endcan
         </div>
     </div>
-    @include('tasks.create')
-    @include('tasks.steps')
+    {{-- @include('tasks.create')
+    @include('tasks.steps') --}}
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg table_content">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" id="table_task">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
@@ -39,7 +39,7 @@
             <tbody>
 
 
-                @foreach ($tasks as $task)
+                @foreach ($tasks_all as $task)
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
                         <td class="px-4 py-4">
                             @if ($task->status == 'cancelled')

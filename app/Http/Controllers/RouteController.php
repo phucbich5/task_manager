@@ -31,4 +31,12 @@ class RouteController extends Controller
     {
         return view('tasks');
     }
+    public function alltasks()
+    {
+        return view('alltasks');
+    }
+    public function allsteps()
+    {
+        return view('allsteps');
+    }
 }

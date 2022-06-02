@@ -77,7 +77,6 @@ class Steps extends Component
         $step_info = Step::find($id);
         $this->step_id = $step_info->id;
         if (Gate::allows('isAdmin')) {
-
             $this->name = $step_info->name;
             $this->task_id = $step_info->task_id;
             $this->assigned_to = $step_info->assigned_to;
