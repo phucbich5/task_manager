@@ -39,4 +39,8 @@ class RouteController extends Controller
     {
         return view('allsteps');
     }
+    public function profile()
+    {
+        return view('profile');
+    }
 }

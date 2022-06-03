@@ -8,9 +8,9 @@
                 class="w-full flex justify-between items-center px-10 py-5 border-b text-white bg-blue-600 rounded-t-lg">
                 <h3 class="text-xl font-medium text-white">
                     @if ($updateMode)
-                        Edit Task
+                        Edit User
                     @else
-                        Add Task
+                        Add User
                     @endif
 
                 </h3>

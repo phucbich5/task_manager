@@ -21,6 +21,7 @@ class Users extends Component
     public function render()
     {
         $users = DB::table('users')->paginate(10);
+        
         return view('user.index',compact('users'));
     }
 

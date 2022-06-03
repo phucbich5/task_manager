@@ -49,11 +49,12 @@ Route::get('/users', [RouteController::class, 'users'])->middleware(['auth']);
 Route::get('/tasks', [RouteController::class, 'tasks'])->middleware(['auth']);
 Route::get('/alltasks', [RouteController::class, 'alltasks'])->middleware(['auth']);
 Route::get('/allsteps', [RouteController::class, 'allsteps'])->middleware(['auth']);
-
+Route::get('/profile', [RouteController::class, 'profile'])->middleware(['auth']);
 Route::get('/test', function () {
     event(new App\Events\StatusLiked('status-liked'));
     return "Event has been sent!";
 });
+Route::post('/profile/update', 'App\Http\Livewire\Profile@update');
 
 
 
