@@ -20,9 +20,6 @@ class Allsteps extends Component
     public $updateMode = false;
     public function render()
     {
-        // $this->steps_all = DB::table('steps')->orderBy('deadline', 'asc')
-        //     ->get();
-        // return view('livewire.allsteps');
         $users = DB::table('users')->get();
         $tasks = Task::with('assigned_user')->get();
         $steps_all = Step::with('task_info')

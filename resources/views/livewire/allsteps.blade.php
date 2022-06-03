@@ -40,9 +40,9 @@
                     <th scope="col" class="px-4 py-3">
                         Deadline
                     </th>
-                    <th scope="col" class="px-4 py-3 text-center">
+                    {{-- <th scope="col" class="px-4 py-3 text-center">
                         Action
-                    </th>
+                    </th> --}}
                 </tr>
             </thead>
             <tbody>
@@ -60,9 +60,6 @@
                                 <p class="p-1 text-xs text-white bg-purple-400 rounded-md px-2 border-0" name="status">
                                     review
                                 </p>
-
-                                <span class="ml-2 text-green-500"
-                                    wire.click="mark_status_complete({{ $st->task_id, $st->id }})"></span>
                             @elseif ($st->status == 'completed')
                                 <p class="p-1 text-xs text-white bg-blue-400 rounded-md px-2 border-0" name="status">
                                     complete
@@ -92,7 +89,8 @@
                             {{ $st->deadline }}
                         </td>
 
-                        <td class="px-4 py-4 text-center">
+                        {{-- <td class="px-4 py-4 text-center">
+                            @if (auth()->user()->id == $st->assigned_to)
                                 <div class="flex items-center justify-center">
                                     <div class="px-2">
                                         <button type="button" class="text-red-600" data-modal-toggle="step-modal"
@@ -100,9 +98,13 @@
                                             <i class="fa-solid fa-pen-to-square"></i>
                                         </button>
                                     </div>
-                                </div>  
+                                </div>
+                            @endif
 
-                        </td>
+
+
+
+                        </td> --}}
                     </tr>
                 @endforeach
             </tbody>

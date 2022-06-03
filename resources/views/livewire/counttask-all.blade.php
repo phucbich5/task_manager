@@ -1,7 +1,5 @@
+<p class="px-3 mx-1 rounded-lg bg-blue-700 text-white py-1 text-center"><b>{{ $tasks_open_all }}</b><br>Task Open
+</p>
+<p class="px-3 mx-1 bg-yellow-500 rounded-lg text-white py-1 text-center"><b>{{ $tasks_close_all }}</b><br>Task Close
+</p>
 
-<p class="px-3 mx-1 bg-yellow-500 rounded-lg text-white py-2">Task Close: <span
-        class="font-bold text-white">{{ $tasks_close_all }}</span>
-</p>
-<p class="px-3 mx-1 rounded-lg bg-blue-700 text-white py-2">Task Open: <span
-        class="font-bold text-white">{{ $tasks_open_all }}</span>
-</p>
