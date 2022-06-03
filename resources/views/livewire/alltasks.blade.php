@@ -2,7 +2,7 @@
     <div class="flex items-center justify-between mb-5 content_header">
         <h1 class="text-3xl font-bold text-blue-600">All TASKS</h1>
         <div class="flex items-center">
-        @livewire('counttask')
+        @livewire('counttask-all')
         @can('isAdmin')
             <button
                 class="ml-5 px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

@@ -27,26 +27,18 @@ class Counttask extends Component
                 ->where('status', '=', 'open')
                 ->count();
             return view('livewire.counttask');
-        } else { 
-        //     $this->tasks_close_all = DB::table('tasks')
-        //         ->where('status', '=', 'closed')
-        //         ->count();
-        //     $this->tasks_open_all = DB::table('tasks')
-        //         ->where('status', '=', 'open')
-        //         ->count();
-
-            $this->tasks_open = DB::table('tasks')
-                ->join('steps', 'tasks.id', '=', 'steps.task_id')
-                ->select('tasks.*')
-                ->where('assigned_to', Auth::user()->id)
-                ->where('tasks.status', '=', 'open')
-                ->count();
-
+        } else {
             $this->tasks_close = DB::table('tasks')
                 ->join('steps', 'tasks.id', '=', 'steps.task_id')
                 ->select('tasks.*')
+                ->where('tasks.status', '=', 'closed')
                 ->where('assigned_to', Auth::user()->id)
-                ->where('tasks.status', '=', 'close')
+                ->count();
+            $this->tasks_open = DB::table('tasks')
+                ->join('steps', 'tasks.id', '=', 'steps.task_id')
+                ->select('tasks.*')
+                ->where('tasks.status', '=', 'open')
+                ->where('assigned_to', Auth::user()->id)
                 ->count();
             return view('livewire.counttask');
         }

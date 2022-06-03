@@ -32,22 +32,11 @@ class Countstep extends Component
                 ->count();
             return view('livewire.countstep');
         } else {
-            // $this->steps_review_all = DB::table('steps')
-            //     ->where('status', '=', 'review')
-            //     ->count();
-            // $this->steps_progress_all = DB::table('steps')
-            //     ->where('status', '=', 'progress')
-            //     ->count();
-            // $this->steps_complete_all = DB::table('steps')
-            //     ->where('status', '=', 'completed')
-            //     ->count();
-            // $this->steps_notproress_all = DB::table('steps')
-            //     ->where('status', '=', 'not started')
-            //     ->count();
             $this->steps_review = Step::with('task_info')->where('status', '=', 'review')->where('assigned_to', Auth::user()->id)->count();
             $this->steps_progress = Step::with('task_info')->where('status', '=', 'progress')->where('assigned_to', Auth::user()->id)->count();
             $this->steps_complete = Step::with('task_info')->where('status', '=', 'completed')->where('assigned_to', Auth::user()->id)->count();
             $this->steps_notproress = Step::with('task_info')->where('status', '=', 'not started')->where('assigned_to', Auth::user()->id)->count();
+            
             return view('livewire.countstep');
         }
     }

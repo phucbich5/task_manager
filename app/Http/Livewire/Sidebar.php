@@ -43,7 +43,9 @@ class Sidebar extends Component
                 ->select('tasks.*')
                 ->where('assigned_to', Auth::user()->id)
                 ->count();
-            $this->steps = Step::with('task_info')->where('assigned_to', Auth::user()->id)->count();
+            $this->steps = Step::with('task_info')
+                ->where('assigned_to', Auth::user()->id)
+                ->count();
             return view('livewire.sidebar');
         }
     }
