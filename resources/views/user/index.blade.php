@@ -25,6 +25,9 @@
                         Status
                     </th>
                     <th scope="col" class="px-4 py-3">
+                        Avatar
+                    </th>
+                    <th scope="col" class="px-4 py-3">
                         Role
                     </th>
                     <th scope="col" class="px-4 py-3 text-center">
@@ -52,6 +55,9 @@
                                     </span>
                                 @endif
 
+                            </td>
+                            <td class="px-4 py-4 text-xs">
+                                <img src="/storage/{{ $user->image }}" alt="" style="width:50px;height:50px;border-radius:50%">
                             </td>
                             <td class="px-4 py-4 text-xs">
                                 {{ $user->role }}

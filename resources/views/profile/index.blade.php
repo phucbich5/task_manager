@@ -2,60 +2,122 @@
    Our profile cards
 ------------------------>
 
+
 <div class="cards-container">
     <div class="flex justify-center">
         <div class="edit card w-1/2 h-full" style="margin:0">
             <div class="wrapper">
-                <form class="login" {{ url('/hocsinh/update') }}>
-                    <p class="title" style="color:#6573d0">Change profile</p>
-                    <input placeholder="Username" type="email" name="email" autofocus />
-                    <i class="fa fa-user"></i>
-                    <input type="password" placeholder="Password" name="password" />
-                    <i class="fa fa-key"></i>
-                    <a href="#">Forgot your password?</a>
-                    
-                    {{-- @if ($updateMode) --}}
-                        <button type="submit">
+                <form class="login">
+                    <div>
+                        <input type="hidden" wire:model="user_id" required>
+                        <p class="title" style="color:#6573d0">Change profile</p>
+                        <div class="text-blue-500 text-left mb-5">
+                            {!! Session::has('update_ok') ? Session::get('update_ok') : '' !!}
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <input type="email" name="email" wire:model="email" required/>
+                        <i class="fa fa-user"></i>
+                    </div>
+
+                    <div>
+                        <input type="password" placeholder="Enter old password" name="current_password"
+                            wire:model="current_password" required/>
+                        <i class="fa fa-key"></i>
+                        <div class="text-red-500 text-left" style="">
+                            {!! Session::has('msg') ? Session::get('msg') : '' !!}
+                        </div>
+
+                    </div>
+
+                    <div>
+                        <input type="password" placeholder="New Password" name="password" wire:model="password" required/>
+                        <i class="fa fa-key"></i>
+                        @error('password')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div>
+                        <input type="password" placeholder="Retype a new password" name="password_confirmation"
+                            wire:model="password_confirmation"required />
+                        <i class="fa fa-key"></i>
+                        @error('password_confirmation')
+                            <span class="text-red-500 text-xs">{{ $message }}</span>
+                        @enderror
+                    </div>
+
+                    <div class="flex items-center">
+                        <div class="w-full">
                             <i class="spinner"></i>
-                            <span class="state">Change</span>
-                        </button>
+                            {{-- <input type="file" class="form-control" id="exampleInputName" wire:model="image"> --}}
+                            <input type="file" class="form-control" id="exampleInputName" wire:model="image"
+                                name="image" style="padding:0" required>
+                        </div>
+                        {{-- <div class="flex justify-center w-1/2"> --}}
+                        {{-- <div>
+                                @if (!$this->image)
+                                    <img src="{{ asset('images/no_image.png') }}" alt=""
+                                        style="width:100px;border-radius:50%;heigth:100px">
+                                @else
+                                    @if (is_string($image))
+                                        <img src="{{ asset('storage/' . $image) }}" alt=""
+                                            style="width:100px;border-radius:50%;heigth:100px">
+                                    @else
+                                        <img src="{{ $image->temporaryUrl() }}" alt=""
+                                            style="width:100px;border-radius:50%;heigth:100px">
+                                    @endif
+                                @endif
+                            </div> --}}
+
+                        {{-- </div> --}}
+
+                    </div>
+
+
+
+                    <button type="submit" wire:click.prevent="update">
+                        <i class="spinner"></i>
+                        <span class="state">Change</span>
+                    </button>
+
                     {{-- @endif --}}
                 </form>
             </div>
         </div>
-        @foreach ($profile as $pro)
-            <div class="card card-one">
-                <header>
-                    <div class="avatar">
-                        <img src="https://randomuser.me/api/portraits/men/3.jpg" alt="Jhon Doe" />
-                    </div>
-                </header>
 
-                <h3 class="uppercase font-medium">{{ $pro->name }}</h3>
-                <div class="desc">
-                    Chức Vụ: {{ $pro->role }}
+        <div class="card card-one w-1/2">
+            <header>
+                <div class="avatar">
+                    <img src="/storage/{{ $profile->image }}" alt="">
                 </div>
-                <div class="desc">
-                    @if ($pro->status == 0)
-                        Trạng thái: Active
-                    @else
-                        Trạng thái: Off
-                    @endif
-                </div>
-                <div class="contacts">
-                    <a href=""><i class="fa fa-plus"></i></a>
-                    <a href=""><i class="fa fa-whatsapp"></i></a>
-                    <a href=""><i class="fa fa-envelope"></i></a>
-                    <div class="clear"></div>
-                </div>
+            </header>
 
-                <footer>
-                    <input
-                        class="mx-auto block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                        id="file_input" type="file">
-                </footer>
+            <h3 class="uppercase font-medium">{{ $profile->name }}</h3>
+            <div class="desc">
+                Chức Vụ: {{ $profile->role }}
             </div>
-        @endforeach
+            <div class="desc">
+                @if ($profile->status == 0)
+                    Trạng thái: Active
+                @else
+                    Trạng thái: Off
+                @endif
+            </div>
+            <div class="contacts">
+                <a href=""><i class="fa fa-plus"></i></a>
+                <a href=""><i class="fa fa-whatsapp"></i></a>
+                <a href=""><i class="fa fa-envelope"></i></a>
+                <div class="clear"></div>
+            </div>
+
+            {{-- <footer>
+
+            </footer> --}}
+        </div>
+
     </div>
 </div>
 
@@ -304,7 +366,6 @@
             margin-right: auto;
         }
     }
-
 </style>
 
 <style>
@@ -330,6 +391,7 @@
         width: 100%;
         min-height: 100%;
         padding: 20px;
+        padding-top: 0;
     }
 
     .login {
@@ -368,13 +430,15 @@
 
     .login input {
         display: block;
-        padding: 15px 10px;
         margin-bottom: 10px;
         width: 100%;
         border: 1px solid #ddd;
         transition: border-width 0.2s ease;
         border-radius: 2px;
         color: #ccc;
+        margin-bottom: 30px;
+        height: 40px;
+        padding: 10px;
     }
 
     .login input+i.fa {
@@ -476,5 +540,4 @@
         color: #fff;
         text-decoration: none;
     }
-
 </style>

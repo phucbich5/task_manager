@@ -21,6 +21,7 @@ class CreateUsersTable extends Migration
             $table->enum('role',['admin','translater','video_editer','developer','content_writer','seo','designer'])->default('content_writer');
             $table->enum('status',[1,0])->default(1);
             $table->string('password');
+            $table->string('image')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

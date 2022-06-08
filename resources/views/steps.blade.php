@@ -1,3 +1,6 @@
 <x-app-layout>
-        @livewire('steps')
+       
+                @livewire('steps')
+
+       
 </x-app-layout>

@@ -10,24 +10,27 @@ use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+use Livewire\WithFileUploads;
+use GuzzleHttp\Psr7\UploadedFile;
+
 
 class Users extends Component
 {
 
-    public $name, $email, $role, $status,$password,$user_id;
+    public $name, $email, $role, $status, $password, $user_id, $image;
 
     public $updateMode = false;
-
+    use WithFileUploads;
     public function render()
     {
         $users = DB::table('users')->paginate(10);
-        
-        return view('user.index',compact('users'));
+
+        return view('user.index', compact('users'));
     }
 
     // public function count_user(){    
     //     $count_user = DB::table('users')->count();
-       
+
     //     return view('components.sidebar',compact('count_user'));
     // }
     public function clearInput()
@@ -46,21 +49,33 @@ class Users extends Component
         $this->validate([
             'name' => 'required',
             'email' => 'required',
-            'role'=>'required',
+            'role' => 'required',
             'status' => 'required',
         ]);
         $password = Str::random(21);
 
-       
-        User::create([
-            'name' => $this->name,
-            'email' => $this->email,
-            'role' => $this->role,
-            'status' => $this->status,
-            // 'password' => Hash::make($this->password),
-            'password' => Hash::make($password),
-        ]);
+        // if ($this->image instanceof UploadedFile) {
+        //     $this->user->image = $this->image->store('users');
 
+
+        if ($this->image) {
+            User::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'role' => $this->role,
+                'status' => $this->status,
+                'password' => Hash::make($password),
+                'image' => $this->image->store('public', 'public'),
+            ]);
+        } else {
+            User::create([
+                'name' => $this->name,
+                'email' => $this->email,
+                'role' => $this->role,
+                'status' => $this->status,
+                'password' => Hash::make($password),
+            ]);
+        }
 
 
         $details = [
@@ -69,15 +84,10 @@ class Users extends Component
         ];
 
         Mail::to($this->email)->send(new \App\Mail\SendMail($details));
-
-
-
-
         $this->clearInput();
-
-      
+        return redirect('/users');
     }
-    
+
 
     public function edit($id)
     {
@@ -91,6 +101,7 @@ class Users extends Component
         $this->role = $user_info->role;
         $this->status = $user_info->status;
         $this->password = $user_info->password;
+        $this->image = $user_info->image;
     }
 
     public function update()
@@ -98,16 +109,28 @@ class Users extends Component
 
         $user_info = User::find($this->user_id);
 
-        $user_info->update([
-            'name' => $this->name,
-            'email' => $this->email,
-            'role' => $this->role,
-            'status' => $this->status,
-            'password' => $this->password
-        ]);
+        if ($this->image) {
+            $user_info->update([
+                'name' => $this->name,
+                'email' => $this->email,
+                'role' => $this->role,
+                'status' => $this->status,
+                'password' => $this->password,
+                'image' => $this->image->store('public', 'public'),
+            ]);
+        } else {
+            $user_info->update([
+                'name' => $this->name,
+                'email' => $this->email,    
+                'role' => $this->role,
+                'status' => $this->status,
+                'password' => $this->password,
+            ]);
+        }
 
-      
+
 
         $this->clearInput();
+        return redirect('/users');
     }
 }

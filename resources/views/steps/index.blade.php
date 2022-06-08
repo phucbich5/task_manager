@@ -1,10 +1,10 @@
-<div class="container mx-auto tab_content">
+<div class="container mx-auto tab_content" >
     <div class="flex items-center justify-between mb-5 content_header">
         <h1 class="text-3xl font-bold text-blue-600">STEPS</h1>
 
         <div class="flex items-center">
 
-            
+
             @livewire('countstep')
             @can('isAdmin')
                 <button
@@ -82,8 +82,11 @@
                             @endif
                         </td>
 
-                        <td class="px-4 py-4 ">
-                            {{ $st->assigned_user->name }}
+                        <td class="px-4 py-4 flex items-center">
+                            <img src="/storage/{{ $st->assigned_user->image }}" alt="" style="width:30px;height:30px;border-radius:50%;">
+                            <p class="ml-2">{{ $st->assigned_user->name }}</p>
+                            
+
                         </td>
                         <td class="px-4 py-4 ">
                             {{ $st->description }}

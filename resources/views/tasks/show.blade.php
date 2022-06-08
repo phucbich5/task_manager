@@ -48,10 +48,13 @@
                                 @endif
                             </span>
                         </h3>
-                        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">
-                            <span class="mr-2 text-blue-500"><i class="fas fa-user"></i></span>
-
-                            {{ $step->assigned_user->name }}
+                        <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400 ">
+                            <div class="flex items-center mb-2">
+                                <img src="/storage/{{ $step->assigned_user->image }}" alt="" style="width:30px;height:30px;border-radius:50%;">
+                                
+                                <p class="ml-2">{{ $step->assigned_user->name }}</p>
+                            </div>
+                                    
 
                         </p>
                         <p class="mb-4 text-base font-normal text-gray-500 dark:text-gray-400">

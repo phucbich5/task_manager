@@ -36,7 +36,6 @@ class Countstep extends Component
             $this->steps_progress = Step::with('task_info')->where('status', '=', 'progress')->where('assigned_to', Auth::user()->id)->count();
             $this->steps_complete = Step::with('task_info')->where('status', '=', 'completed')->where('assigned_to', Auth::user()->id)->count();
             $this->steps_notproress = Step::with('task_info')->where('status', '=', 'not started')->where('assigned_to', Auth::user()->id)->count();
-            
             return view('livewire.countstep');
         }
     }

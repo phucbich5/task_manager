@@ -52,6 +52,31 @@
                             <span class="text-red-500 text-xs">{{ $message }}</span>
                         @enderror
                     </div>
+                    <div class="col-md-8">
+                        <div class="flex items-center">
+                            <div>
+                                {{-- <input type="file" class="form-control input-sm @error('image') is-invalid @enderror"
+                                    placeholder="image" wire:model.lazy="image"> --}}
+                                <input type="file" class="form-control" id="exampleInputName" wire:model="image" name="image">
+                                @error('image')
+                                    <span class="text-danger fs-6 fw-light"> {{ $message }} </span>
+                                @enderror
+                            </div>
+                            <div>
+                                @if (!$this->image)
+                                    <img src="{{ asset('images/no_image.png') }}" alt="" style="width:100px;height:100px;border-radius:50%">
+                                @else
+                                    @if (is_string($image))
+                                        <img src="{{ asset('storage/' . $image) }}" alt="" style="width:100px;height:100px;border-radius:50%">
+                                    @else
+                                        <img src="{{ $image->temporaryUrl() }}" alt="" style="width:100px;height:100px;border-radius:50%">
+                                    @endif
+                                @endif
+                            </div>
+                        </div>
+
+                    </div>
+
                     <div>
                         <label for="status"
                             class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Status</label>

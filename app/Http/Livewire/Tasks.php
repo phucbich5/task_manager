@@ -79,6 +79,7 @@ class Tasks extends Component
             'status' => $this->status
         ]);
         $this->clearInput();
+        return redirect('/tasks');
     }
 
     public function edit($id)
@@ -92,6 +93,7 @@ class Tasks extends Component
         $this->description = $task_info->description;
         $this->deadline = str_replace(' ', 'T', $task_info->deadline);
         $this->status = $task_info->status;
+
     }
 
     public function update()
@@ -107,6 +109,7 @@ class Tasks extends Component
         ]);
 
         $this->clearInput();
+        return redirect('/tasks');
     }
 
     public function addStep($id)
@@ -174,6 +177,8 @@ class Tasks extends Component
 
         $this->inputs = [];
         $this->clearInputStep();
+        return redirect('/task');
+        
     }
     public function show_task($id)
     {

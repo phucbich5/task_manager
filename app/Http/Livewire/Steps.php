@@ -55,7 +55,7 @@ class Steps extends Component
             'name' => 'required',
             'task_id' => 'required',
             'assigned_to' => 'required',
-            'status' => 'required', 
+            'status' => 'required',
             'description' => 'required',
             'deadline' => 'required',
         ]);
@@ -69,6 +69,7 @@ class Steps extends Component
         ]);
 
         $this->clearInput();
+        return redirect('/steps');
     }
 
     public function edit($id)
