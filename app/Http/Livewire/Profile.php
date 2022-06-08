@@ -60,25 +60,49 @@ class Profile extends Component
         
         if ($this->image) {
             if (Hash::check($this->current_password, Auth::user()->password)) {
-                $user_info = User::findOrFail(Auth::user()->id);
-                $user_info->update([
-                    'password' => Hash::make($this->password),
-                    
-                    'image' => $this->image->store('public', 'public'),
-                ]);
-                session()->flash('update_ok', 'Đổi mật khẩu thành công');
-                return redirect('/profile');
+               
+                
+                if($this->password == $this->password_confirmation){
+
+                    $user_info = User::findOrFail(Auth::user()->id);
+                    $user_info->update([
+                        'password' => Hash::make($this->password),
+                        
+                        'image' => $this->image->store('public', 'public'),
+                    ]);
+                    session()->flash('update_ok', 'Đổi mật khẩu thành công');
+                    return redirect('/profile');
+                }else{
+                    session()->flash('update_ok', 'password not matching');
+                    return redirect('/profile');
+
+                }
+               
+
+
+
+
             } else {
                 session()->flash('msg', 'Sai mật khẩu cũ');
                 return redirect('/profile');
             }
         } else {
             if (Hash::check($this->current_password, Auth::user()->password)) {
+                
+                if($this->password == $this->password_confirmation){
+
                 $user_info = User::findOrFail(Auth::user()->id);
                 $user_info->password = Hash::make($this->password);
                 $user_info->save();
                 session()->flash('update_ok', 'Đổi mật khẩu thành công');
                 return redirect('/profile');
+
+                }else{
+                    session()->flash('update_ok', 'password not matching');
+                    return redirect('/profile');
+                }
+
+
             } else {
                 session()->flash('msg', 'Sai mật khẩu cũ');
                 return redirect('/profile');

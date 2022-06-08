@@ -14,7 +14,8 @@ class Events extends Component
 
 
     // inputs
-    public $name, $keyperson, $date, $start_time, $end_time, $status, $event_type;
+    public $name, $keyperson, $date, $start_time, $end_time, $status, $event_typesoh;
+    public $event_type;
 
 
     public $updateMode = false;
@@ -24,7 +25,7 @@ class Events extends Component
     public function render()
     {
         $this->events = Event::all();
-        $this->event_type = EventType::all();
+        $this->event_types = EventType::all();
         
 
         return view('livewire.events');
@@ -48,15 +49,15 @@ class Events extends Component
     public function store(){
 
 
-        $this->validate([
-            'name'=>required,
-            'keyperson'=>required,
-            'date'=>required,
-            'start_time'=>required,
-            'end_time'=>required,
-            'status'=>required,
-            'event_type'=>required
-        ]);
+        // $this->validate([
+        //     'name'=>required,
+        //     'keyperson'=>required,
+        //     'date'=>required,
+        //     'start_time'=>required,
+        //     'end_time'=>required,
+        //     'status'=>required,
+        //     'event_type'=>required
+        // ]);
 
 
         Event::create([
@@ -69,6 +70,7 @@ class Events extends Component
             'event_type' => $this->event_type
         ]);
 
+        return redirect('/events');
         $this->clearInput();
     }
 

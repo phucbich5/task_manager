@@ -43,4 +43,8 @@ class RouteController extends Controller
     {
         return view('profile');
     }
+    public function events()
+    {
+        return view('events');
+    }
 }
