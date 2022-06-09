@@ -3,7 +3,8 @@
         margin: 0 !important;
         font-size: 18px;
     }
-    .sidebar ul li a{
+
+    .sidebar ul li a {
         padding: 20px 30px;
         font-weight: bold;
     }
@@ -24,7 +25,6 @@
     nav button {
         font-size: 20px !important;
     }
-
 </style>
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow"
     style="background: #205081;border-bottom: 1px solid #a5bed6; color:#fff;">
@@ -49,6 +49,7 @@
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ml-6">
+                    {{-- <img src="/storage/{{ $profile->image }}" alt=""> --}}
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button

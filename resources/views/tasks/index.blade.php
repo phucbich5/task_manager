@@ -2,18 +2,21 @@
     <div class="flex items-center justify-between mb-5 content_header">
         <h1 class="text-3xl font-bold text-blue-600">TASKS</h1>
         <div class="flex items-center">
-        @livewire('counttask')
-        @can('isAdmin')
-            <button
-                class="ml-5 px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                style="background: #205081;" type="button" data-modal-toggle="authentication-modal">
-                Add
-            </button>
-        @endcan
+            @livewire('counttask')
+            @can('isAdmin')
+                <button
+                    class="ml-5 px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                    style="background: #205081;" type="button" data-modal-toggle="authentication-modal">
+                    Add
+                </button>
+            @endcan
         </div>
     </div>
     @include('tasks.create')
     @include('tasks.steps')
+    <div class="flex justify-end my-5 mr-5">
+        {{ $tasks->links() }}
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg table_content">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" id="table_task">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
@@ -47,7 +50,7 @@
                                     {{ $task->name }}
                                 </span>
                             @else
-                                    {{ $task->name }}
+                                {{ $task->name }}
                             @endif
                         </td>
                         <td class="px-4 py-4 text-xs">
@@ -65,7 +68,7 @@
                                     {{ $task->deadline }}
                                 </span>
                             @else
-                            {{ $task->deadline }}
+                                {{ $task->deadline }}
                             @endif
                         </td>
                         <td class="px-4 py-4">
@@ -116,11 +119,11 @@
                 @endforeach
             </tbody>
         </table>
-            {{-- <div class="flex justify-center my-5">
-                {{ $tasks->links() }}
-            </div> --}}
-    </div>
 
+    </div>
+    <div class="flex justify-end my-5 mr-5">
+        {{ $tasks->links() }}
+    </div>
 </div>
 
 <script>

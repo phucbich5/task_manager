@@ -1,4 +1,4 @@
-<div class="container mx-auto tab_content" >
+<div class="container mx-auto tab_content">
     <div class="flex items-center justify-between mb-5 content_header">
         <h1 class="text-3xl font-bold text-blue-600">STEPS</h1>
 
@@ -18,7 +18,12 @@
     </div>
 
     @include('steps.create')
+    
+    <div class="flex justify-end my-5 mr-5">
+        {{ $steps->links() }}
+    </div>
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg table_content">
+            
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
             <thead class="20 text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
                 <tr>
@@ -112,7 +117,7 @@
         </table>
 
     </div>
-    <div class="flex justify-center my-5">
-        {{ $steps->links() }}
-    </div>
+        <div class="flex justify-end my-5 mr-5">
+            {{ $steps->links() }}
+        </div>
 </div>

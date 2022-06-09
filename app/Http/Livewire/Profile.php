@@ -70,7 +70,7 @@ class Profile extends Component
                         
                         'image' => $this->image->store('public', 'public'),
                     ]);
-                    session()->flash('update_ok', 'Đổi mật khẩu thành công');
+                    session()->flash('update_ok', 'Change password successfully');
                     return redirect('/profile');
                 }else{
                     session()->flash('update_ok', 'password not matching');
@@ -83,7 +83,7 @@ class Profile extends Component
 
 
             } else {
-                session()->flash('msg', 'Sai mật khẩu cũ');
+                session()->flash('msg', 'Wrong old password');
                 return redirect('/profile');
             }
         } else {
@@ -94,7 +94,7 @@ class Profile extends Component
                 $user_info = User::findOrFail(Auth::user()->id);
                 $user_info->password = Hash::make($this->password);
                 $user_info->save();
-                session()->flash('update_ok', 'Đổi mật khẩu thành công');
+                session()->flash('update_ok', 'Change password successfully');
                 return redirect('/profile');
 
                 }else{
@@ -104,7 +104,7 @@ class Profile extends Component
 
 
             } else {
-                session()->flash('msg', 'Sai mật khẩu cũ');
+                session()->flash('msg', 'Wrong old password');
                 return redirect('/profile');
             }
         }

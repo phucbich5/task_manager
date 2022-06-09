@@ -1,11 +1,18 @@
-<div wire:poll>
-    Current time: {{ now() }}
+<div wire:poll class="my-5">
+    {{-- Current time: {{ now() }} --}}
+
     @can('isAdmin')
-        <button
+        <div class="flex justify-between">
+            <button
             class="my-5 px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             style="background: #205081;" type="button" data-modal-toggle="event-modal">
             Add
         </button>
+        <a href="/tasks" class="my-5 px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            Dashboard
+        </a>
+        </div>
+        
         <!-- Main modal -->
         <div id="event-modal" wire:ignore.self tabindex="-1" aria-hidden="true"
             class="fixed top-0 left-0 right-0 z-50 hidden w-full overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
@@ -50,7 +57,7 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         required>
                                     @error('name')
-                                        {{-- <span class="text-red-500 text-xs">{{ $message }}</span> --}}
+                                        <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-1/2 ml-3">
@@ -61,7 +68,7 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         required>
                                     @error('keyperson')
-                                        {{-- <span class="text-red-500 text-xs">{{ $message }}</span> --}}
+                                        <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -74,7 +81,7 @@
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     required>
                                 @error('date')
-                                    {{-- <span class="text-red-500 text-xs">{{ $message }}</span> --}}
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div class="flex ">
@@ -85,7 +92,7 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         required>
                                     @error('start_time')
-                                        {{-- <span class="text-red-500 text-xs">{{ $message }}</span> --}}
+                                        <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
                                 </div>
                                 <div class="w-1/2 ml-3">
@@ -95,7 +102,7 @@
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         required>
                                     @error('end_time')
-                                        {{-- <span class="text-red-500 text-xs">{{ $message }}</span> --}}
+                                        <span class="text-red-500 text-xs">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -110,7 +117,7 @@
 
                                 </select>
                                 @error('status')
-                                    {{-- <span class="text-red-500 text-xs">{{ $message }}</span> --}}
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
                                 @enderror
                             </div>
                             <div>
@@ -142,24 +149,29 @@
                 </div>
             </div>
         </div>
-
     @endcan
     @foreach ($events as $event)
-        <div class="px-3 py-4 bg-purple-400 rounded-xl mb-5">
+        <div class="px-3 py-4 bg-blue-400 rounded-xl mb-5">
             {{-- Success is as dangerous as failure. --}}
-            <div class="flex flex-row mb-3">
-
-                <div class="basis-3/4">
-
-                    {{ $event->event_type }}
+            <div class="flex flex-row mb-3 justify-between">
+                <div class="flex">
+                    <div class="basis-3/4 text-white">
+                        {{ $event->event_type }}
+                    </div>
+                    <div class="basis-1/4 ml-5">
+                        <span class="text-white">
+                            <i class="fas fa-location-pin"></i>
+                            Jeff Bezos
+                        </span>
+    
+                    </div>
                 </div>
-                <div class="basis-1/4 ml-5">
-                    <span class="text-white">
-                        <i class="fas fa-location-pin"></i>
-                        Jeff Bezos
-                    </span>
-
-                </div>
+                @can('isAdmin')
+                <button type="button" class="text-white" data-modal-toggle="event-modal"
+                    wire:click="edit({{ $event->id }})">
+                    <i class="fa-solid fa-pen-to-square"></i>
+                </button>
+                @endcan
             </div>
             <hr>
 
@@ -167,9 +179,8 @@
                 {{ $event->start_time }} AM - {{ $event->end_time }} AM
             </h1>
 
-            <h3 class="mb-3 text-3xl">
+            <h3 class="mb-3 text-3xl text-white">
                 {{ $event->name }}
-
             </h3>
 
             <hr>

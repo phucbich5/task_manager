@@ -47,4 +47,8 @@ class RouteController extends Controller
     {
         return view('events');
     }
+    public function event_types()
+    {
+        return view('event-types');
+    }
 }

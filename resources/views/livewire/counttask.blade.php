@@ -1,3 +1,4 @@
+<div wire:poll class="flex">
 @can('isAdmin')
     <p class="px-3 mx-1 rounded-lg bg-blue-700 text-white py-1 text-center text-center"><b>{{ $tasks_open }}</b><br>Task
         Open
@@ -15,3 +16,4 @@
     </p>
 
 @endcan
+</div>

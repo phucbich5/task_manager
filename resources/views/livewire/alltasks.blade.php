@@ -14,6 +14,10 @@
     </div>
     {{-- @include('tasks.create')
     @include('tasks.steps') --}}
+    <div class="flex justify-end my-5 mr-5">
+        {{ $tasks_all->links() }}
+    </div>
+    
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg table_content">
         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400" id="table_task">
             <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400">
@@ -120,7 +124,9 @@
                 {{ $tasks->links() }}
             </div> --}}
     </div>
-
+    <div class="flex justify-end my-5 mr-5">
+        {{ $tasks_all->links() }}
+    </div>
     
 
 </div>

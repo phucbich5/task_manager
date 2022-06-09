@@ -17,7 +17,7 @@ use Auth;
 class Tasks extends Component
 {
 
-    public $tasks, $users;
+    // public $tasks, $users;
 
     public $name, $description, $deadline, $status;
 
@@ -37,20 +37,20 @@ class Tasks extends Component
     public function render()
     {
         if (Gate::allows('isAdmin')) {
-            $this->users = DB::table('users')->get();
-            $this->tasks = DB::table('tasks')->orderBy('deadline', 'asc')
-            ->get();
-            return view('tasks.index');
+            $users = DB::table('users')->get();
+            $tasks = DB::table('tasks')->orderBy('deadline', 'asc')
+            ->paginate(5);
+            return view('tasks.index',compact('users','tasks'));
         } else {
 
-            $this->users = DB::table('users')->get();
-            $this->tasks = DB::table('tasks')
+            $users = DB::table('users')->get();
+            $tasks = DB::table('tasks')
                 ->join('steps', 'tasks.id', '=', 'steps.task_id')
                 ->select('tasks.*')
                 ->where('assigned_to', Auth::user()->id)
                 ->orderBy('deadline', 'asc')
-                ->get();
-            return view('tasks.index');
+                ->paginate(5);
+            return view('tasks.index',compact('users','tasks'));
         }
     }
 

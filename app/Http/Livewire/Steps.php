@@ -28,12 +28,12 @@ class Steps extends Component
             $tasks = Task::with('assigned_user')->get();
             $steps = Step::with('task_info')
                 ->orderBy('deadline', 'ASC')
-                ->paginate(10);
+                ->paginate(5);
             return view('steps.index', compact('users', 'tasks', 'steps'));
         } else {
             $users = DB::table('users')->get();
             $tasks = Task::with('assigned_user')->get();
-            $steps = Step::with('task_info')->where('assigned_to', Auth::user()->id)->paginate(10);
+            $steps = Step::with('task_info')->where('assigned_to', Auth::user()->id)->paginate(5);
             return view('steps.index', compact('users', 'tasks', 'steps'));
         }
     }

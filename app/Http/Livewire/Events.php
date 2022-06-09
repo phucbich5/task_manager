@@ -5,17 +5,18 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Event;
 use App\Models\EventType;
+use Illuminate\Support\Facades\DB;
 
 class Events extends Component
 {
-    public $events;
+    // public $events;
 
     public $event_id;
 
 
     // inputs
     public $name, $keyperson, $date, $start_time, $end_time, $status, $event_typesoh;
-    public $event_type;
+    // public $event_type;
 
 
     public $updateMode = false;
@@ -24,14 +25,13 @@ class Events extends Component
 
     public function render()
     {
-        $this->events = Event::all();
-        $this->event_types = EventType::all();
-        
-
-        return view('livewire.events');
+        $events = DB::table('events')->orderBy('start_time', 'ASC')->get();
+        $event_types = DB::table('event_types')->get();
+        return view('livewire.events',compact('events','event_types'));
     }
 
-    public function clearInput(){
+    public function clearInput()
+    {
 
 
         $this->name = '';
@@ -46,18 +46,17 @@ class Events extends Component
         $this->updateMode = false;
     }
 
-    public function store(){
-
-
-        // $this->validate([
-        //     'name'=>required,
-        //     'keyperson'=>required,
-        //     'date'=>required,
-        //     'start_time'=>required,
-        //     'end_time'=>required,
-        //     'status'=>required,
-        //     'event_type'=>required
-        // ]);
+    public function store()
+    {
+        $this->validate([
+            'name' => 'required',
+            'keyperson' => 'required',
+            'date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'status' => 'required',
+            'event_type' => 'required'
+        ]);
 
 
         Event::create([
@@ -74,25 +73,36 @@ class Events extends Component
         $this->clearInput();
     }
 
-    public function edit($id){
+    public function edit($id)
+    {
 
-        $event_info = Event::find($this->event_id);
-
-        $this->name = $event_info->name;
-        $this->keyperson = $event_info->name;
-        $this->date = $event_info->name;
-        $this->start_time = $event_info->name;
-        $this->end_time = $event_info->name;
-        $this->status = $event_info->name;
-        $this->event_type = $event_info->name;
         $this->updateMode = true;
+        $event_info = Event::find($id);
+        $this->event_id = $event_info->id;
+        $this->name = $event_info->name;
+        $this->keyperson = $event_info->keyperson;
+        $this->date = $event_info->date;
+        $this->start_time = $event_info->start_time;
+        $this->end_time = $event_info->end_time;
+        $this->status = $event_info->status;
+        $this->event_type = $event_info->event_type;
     }
 
-    public function update(){
+    public function update()
+    {
 
         $event_info = Event::find($this->event_id);
+        $this->validate([
+            'name' => 'required',
+            'keyperson' => 'required',
+            'date' => 'required',
+            'start_time' => 'required',
+            'end_time' => 'required',
+            'status' => 'required',
+            'event_type' => 'required'
+        ]);
 
-        $event_info::update([
+        $event_info->update([
             'name' => $this->name,
             'keyperson' => $this->keyperson,
             'date' => $this->date,
@@ -104,25 +114,28 @@ class Events extends Component
         $this->clearInput();
     }
 
-    public function delete($id){
-
-       
+    public function delete($id)
+    {
     }
-    public function store_event_type(){
+  
 
 
+
+    public function render_event_types()
+    {
+        $this->event_types = EventType::all();
+        return view('livewire.event_types');
+    }
+    public function store_event_type()
+    {
         $this->validate([
-            'name'=>required,
-            'status'=>required,
+            'name'=>'required',
+            'status'=>'required',
         ]);
-
-
         Event::create([
             'name' => $this->name,
             'status' => $this->status,
         ]);
-
         $this->clearInput();
     }
-
 }

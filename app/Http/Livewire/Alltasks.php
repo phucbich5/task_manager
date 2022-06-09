@@ -18,8 +18,7 @@ class Alltasks extends Component
 {
     public function render()
     {
-            $this->tasks_all = DB::table('tasks')->orderBy('deadline', 'asc')
-                ->get();
-            return view('livewire.alltasks');
+            $tasks_all = DB::table('tasks')->orderBy('deadline', 'asc')->paginate(10);
+            return view('livewire.alltasks', compact('tasks_all'));
     }
 }
