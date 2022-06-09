@@ -32,12 +32,11 @@
                             @endif
 
                         </h3>
-                        <button type="button"
+                        <button type="button" onclick="location.href='/event_types'"
                             class="text-white bg-transparent hover:bg-gray-200
                         hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto
                         inline-flex items-center dark:hover:bg-gray-800
-                        dark:hover:text-white"
-                            data-modal-toggle="event_type-modal">
+                        dark:hover:text-white">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20
                                             20" xmlns="http://www.w3.org/2000/svg">
                                 <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10

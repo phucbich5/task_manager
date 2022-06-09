@@ -87,11 +87,11 @@
                             @endif
                         </td>
 
-                        <td class="px-4 py-4 flex items-center">
-                            <img src="/storage/{{ $st->assigned_user->image }}" alt="" style="width:30px;height:30px;border-radius:50%;">
-                            <p class="ml-2">{{ $st->assigned_user->name }}</p>
-                            
-
+                        <td class="px-4 py-4" style="display:table-cell">
+                            <div class="flex items-center">
+                                <img src="/storage/{{ $st->assigned_user->image }}" alt="" style="width:30px;height:30px;border-radius:50%;">
+                                <p class="ml-2">{{ $st->assigned_user->name }}</p>
+                            </div>
                         </td>
                         <td class="px-4 py-4 ">
                             {{ $st->description }}

@@ -107,5 +107,6 @@ class Steps extends Component
             ]);
         }
         $this->clearInput();
+        return redirect('/steps');
     }
 }

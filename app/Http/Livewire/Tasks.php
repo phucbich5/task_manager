@@ -194,5 +194,6 @@ class Tasks extends Component
 
         // dd($steps);
         return view('tasks.show', compact('tasks', 'steps'));
+        
     }
 }
