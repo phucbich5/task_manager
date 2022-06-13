@@ -52,10 +52,13 @@ Route::get('/allsteps', [RouteController::class, 'allsteps'])->middleware(['auth
 Route::get('/profile', [RouteController::class, 'profile'])->middleware(['auth']);
 Route::get('/events', [RouteController::class, 'events'])->middleware(['auth']);
 Route::get('/event_types', [RouteController::class, 'event_types'])->middleware(['auth']);
+Route::get('/calendar', function(){
+    return view('calendar');
+})->middleware(['auth']);
 Route::get('/test', function () {
     event(new App\Events\StatusLiked('status-liked'));
     return "Event has been sent!";
-});
+}); 
 
 
 

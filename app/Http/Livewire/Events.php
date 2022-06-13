@@ -5,6 +5,7 @@ namespace App\Http\Livewire;
 use Livewire\Component;
 use App\Models\Event;
 use App\Models\EventType;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class Events extends Component
@@ -14,32 +15,41 @@ class Events extends Component
     public $event_id;
 
 
-    // inputs
-    public $name, $keyperson, $date, $start_time, $end_time, $status, $event_typesoh;
+    
+    public $title,$description;
+    public $date,$duration,$keyperson;
+
+    public $status,$event_type;
+   
+   
     // public $event_type;
 
 
     public $updateMode = false;
+    public $users;
 
 
 
     public function render()
     {
-        $events = DB::table('events')->orderBy('start_time', 'ASC')->get();
-        $event_types = DB::table('event_types')->get();
-        return view('livewire.events',compact('events','event_types'));
+        $this->events = DB::table('events')
+        ->join('event_types','events.id','=','event_types.id')
+        ->select('events.*','event_types.name')
+        ->orderBy('date', 'ASC')
+        ->get();
+        $this->event_types = DB::table('event_types')->get();
+        $this->users = User::all();
+        return view('livewire.events');
     }
 
     public function clearInput()
     {
-
-
-        $this->name = '';
-        $this->keyperson = '';
+        $this->title = '';
+        $this->description = '';
         $this->date = '';
+        $this->keyperson = '';
 
-        $this->start_time = '';
-        $this->end_time = '';
+        $this->duration = '';
         $this->status = '';
 
         $this->event_type = '';
@@ -49,23 +59,25 @@ class Events extends Component
     public function store()
     {
         $this->validate([
-            'name' => 'required',
-            'keyperson' => 'required',
+            'title' => 'required',
+            'description'=>'required',
             'date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
+            'keyperson' => 'required',
+            'duration'=>'required',
             'status' => 'required',
             'event_type' => 'required'
         ]);
 
 
         Event::create([
-            'name' => $this->name,
-            'keyperson' => $this->keyperson,
+            'title' => $this->title,
+            'description' => $this->description,
             'date' => $this->date,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
+
+            'keyperson' => $this->keyperson,
+            'duration' => $this->duration,
             'status' => $this->status,
+
             'event_type' => $this->event_type
         ]);
 
@@ -79,11 +91,11 @@ class Events extends Component
         $this->updateMode = true;
         $event_info = Event::find($id);
         $this->event_id = $event_info->id;
-        $this->name = $event_info->name;
+        $this->title = $event_info->title;
         $this->keyperson = $event_info->keyperson;
         $this->date = $event_info->date;
-        $this->start_time = $event_info->start_time;
-        $this->end_time = $event_info->end_time;
+        $this->duration = $event_info->duration;
+        $this->description = $event_info->description;
         $this->status = $event_info->status;
         $this->event_type = $event_info->event_type;
     }
@@ -93,21 +105,21 @@ class Events extends Component
 
         $event_info = Event::find($this->event_id);
         $this->validate([
-            'name' => 'required',
+            'title' => 'required',
             'keyperson' => 'required',
             'date' => 'required',
-            'start_time' => 'required',
-            'end_time' => 'required',
+            'duration' => 'required',
+            'description' => 'required',
             'status' => 'required',
             'event_type' => 'required'
         ]);
 
         $event_info->update([
-            'name' => $this->name,
+            'title' => $this->title,
             'keyperson' => $this->keyperson,
             'date' => $this->date,
-            'start_time' => $this->start_time,
-            'end_time' => $this->end_time,
+            'duration' => $this->duration,
+            'description' => $this->end_time,
             'status' => $this->status,
             'event_type' => $this->event_type
         ]);

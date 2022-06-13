@@ -1,14 +1,14 @@
-<div wire:poll class="my-5">
+<div  class="my-5">
     {{-- Current time: {{ now() }} --}}
 
     @can('isAdmin')
         <div class="flex justify-between">
             <button
-            class="my-5 px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+            class="block px-5 px-10 py-2 my-5 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
             style="background: #205081;" type="button" data-modal-toggle="event-modal">
             Add
         </button>
-        <a href="/tasks" class="my-5 px-10 block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg px-5 py-2 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+        <a href="/tasks" class="block px-5 px-10 py-2 my-5 font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
             Dashboard
         </a>
         </div>
@@ -20,7 +20,7 @@
                 <!-- Modal content -->
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                     <div
-                        class="w-full flex justify-between items-center px-10 py-5 border-b text-white bg-blue-600 rounded-t-lg">
+                        class="flex items-center justify-between w-full px-10 py-5 text-white bg-blue-600 border-b rounded-t-lg">
                         <h3 class="text-xl font-medium text-white">
                             @if ($updateMode)
                                 Edit Event
@@ -53,22 +53,27 @@
                                     <label for="name"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                                         Name</label>
-                                    <input type="text" wire:model="name" name="name"
+                                    <input type="text" wire:model="title" name="title"
                                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                         required>
-                                    @error('name')
-                                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                                    @error('title')
+                                        <span class="text-xs text-red-500">{{ $message }}</span>
                                     @enderror
                                 </div>
+
                                 <div class="w-1/2 ml-3">
                                     <label for="keyperson"
                                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Key
                                         Person</label>
-                                    <input type="text" wire:model="keyperson" name="keyperson"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        required>
+                                    <select id="status" wire:model.defer="keyperson"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="">--select--</option>
+                                    @foreach($users as $user)
+                                    <option value="{{$user->id}}">{{$user->name}}</option>
+                                    @endforeach
+                                    </select>
                                     @error('keyperson')
-                                        <span class="text-red-500 text-xs">{{ $message }}</span>
+                                        <span class="text-xs text-red-500">{{ $message }}</span>
                                     @enderror
                                 </div>
                             </div>
@@ -77,64 +82,68 @@
                             <div>
                                 <label for="date"
                                     class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date</label>
-                                <input type="date" wire:model="date" name="date"
+                                <input type="datetime-local" wire:model="date" name="date"
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
                                     required>
                                 @error('date')
-                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                    <span class="text-xs text-red-500">{{ $message }}</span>
                                 @enderror
                             </div>
-                            <div class="flex ">
-                                <div class="w-1/2 mr-3">
-                                    <label for="start_time"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">start_time</label>
-                                    <input type="time" wire:model="start_time" name="start_time"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        required>
-                                    @error('start_time')
-                                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                                    @enderror
-                                </div>
-                                <div class="w-1/2 ml-3">
-                                    <label for="end_time"
-                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">end_time</label>
-                                    <input type="time" wire:model="end_time" name="end_time"
-                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
-                                        required>
-                                    @error('end_time')
-                                        <span class="text-red-500 text-xs">{{ $message }}</span>
-                                    @enderror
-                                </div>
+                            <div class="w-1/2 mr-3">
+                                <label for="duration"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                    Duration</label>
+                                <input type="number" wire:model="duration" name="duration"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    required>
+                                @error('duration')
+                                    <span class="text-xs text-red-500">{{ $message }}</span>
+                                @enderror
                             </div>
                             <div>
-                                <label for="status"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Status</label>
-                                <select id="status" wire:model.defer="status"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option value="">--select--</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Inactive</option>
+                                <label for="description"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description</label>
+                                <input type="text" wire:model="description" name="description"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white"
+                                    required>
+                                @error('description')
+                                    <span class="text-xs text-red-500">{{ $message }}</span>
+                                @enderror
+                            </div>
 
-                                </select>
-                                @error('status')
-                                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                                @enderror
+                            <div class="grid grid-cols-2 gap-2 mb-4 md:grid-cols-2">
+                                <div>
+                                    <label for="status"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Status</label>
+                                    <select id="status" wire:model.defer="status"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="">--select--</option>
+                                        <option value="1">Active</option>
+                                        <option value="0">Inactive</option>
+    
+                                    </select>
+                                    @error('status')
+                                        <span class="text-xs text-red-500">{{ $message }}</span>
+                                    @enderror
+                                </div>
+                                <div>
+                                    <label for="event_type"
+                                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Event
+                                        Type</label>
+                                    <select id="event_type" wire:model.defer="event_type"
+                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                        <option value="">--select--</option>
+                                        @foreach ($event_types as $type)
+                                            <option value="{{ $type->id }}">{{ $type->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    @error('event_type')
+                                        <span class="text-xs text-red-500">{{ $message }}</span>
+                                    @enderror
+                                </div>
                             </div>
-                            <div>
-                                <label for="event_type"
-                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Event
-                                    Type</label>
-                                <select id="event_type" wire:model.defer="event_type"
-                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                    <option value="">--select--</option>
-                                    @foreach ($event_types as $type)
-                                        <option value="{{ $type->name }}">{{ $type->name }}</option>
-                                    @endforeach
-                                </select>
-                                @error('event_type')
-                                    <span class="text-red-500 text-xs">{{ $message }}</span>
-                                @enderror
-                            </div>
+                            
+                            
 
                             @if ($updateMode)
                                 <button type="submit" wire:click.prevent="update"
@@ -150,15 +159,18 @@
             </div>
         </div>
     @endcan
+
+
+    
     @foreach ($events as $event)
-        <div class="px-3 py-4 bg-blue-400 rounded-xl mb-5">
+        <div class="px-3 py-4 mb-5 bg-blue-400 rounded-xl">
             {{-- Success is as dangerous as failure. --}}
-            <div class="flex flex-row mb-3 justify-between">
+            <div class="flex flex-row justify-between mb-3">
                 <div class="flex">
-                    <div class="basis-3/4 text-white">
-                        {{ $event->event_type }}
+                    <div class="text-white basis-3/4">
+                        {{ $event->name }}
                     </div>
-                    <div class="basis-1/4 ml-5">
+                    <div class="ml-5 basis-1/4">
                         <span class="text-white">
                             <i class="fas fa-location-pin"></i>
                             Jeff Bezos
@@ -175,25 +187,25 @@
             </div>
             <hr>
 
-            <h1 class="mb-3 text-2xl text-white mt-3">
-                {{ $event->start_time }} AM - {{ $event->end_time }} AM
+            <h1 class="mt-3 mb-3 text-2xl text-white">
+                {{ $event->duration }} hours
             </h1>
 
             <h3 class="mb-3 text-3xl text-white">
-                {{ $event->name }}
+                {{ $event->title }}
             </h3>
 
             <hr>
-            <p class="text-white mb-3">Team assigned</p>
+            <p class="mb-3 text-white">Team assigned</p>
 
             <div class="flex">
-                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-1"
+                <img class="w-10 h-10 mx-1 border-2 border-white rounded-full dark:border-gray-800"
                     src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="">
-                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-1"
+                <img class="w-10 h-10 mx-1 border-2 border-white rounded-full dark:border-gray-800"
                     src="https://flowbite.com/docs/images/people/profile-picture-2.jpg" alt="">
-                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-1"
+                <img class="w-10 h-10 mx-1 border-2 border-white rounded-full dark:border-gray-800"
                     src="https://flowbite.com/docs/images/people/profile-picture-3.jpg" alt="">
-                <img class="w-10 h-10 border-2 border-white rounded-full dark:border-gray-800 mx-1"
+                <img class="w-10 h-10 mx-1 border-2 border-white rounded-full dark:border-gray-800"
                     src="https://flowbite.com/docs/images/people/profile-picture-4.jpg" alt="">
             </div>
 

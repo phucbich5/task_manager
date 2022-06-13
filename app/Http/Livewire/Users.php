@@ -27,12 +27,6 @@ class Users extends Component
 
         return view('user.index', compact('users'));
     }
-
-    // public function count_user(){    
-    //     $count_user = DB::table('users')->count();
-
-    //     return view('components.sidebar',compact('count_user'));
-    // }
     public function clearInput()
     {
         $this->name = '';
@@ -50,7 +44,8 @@ class Users extends Component
             'name' => 'required',
             'email' => 'required',
             'role' => 'required',
-            'status' => 'required',
+            'status' => 'requiredphp artisan storage:link
+            ',
         ]);
         $password = Str::random(21);
 

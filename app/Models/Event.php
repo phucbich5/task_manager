@@ -9,9 +9,16 @@ class Event extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name','keyperson',
-        'date','start_time',
-        'end_time','status',
+        'title','keyperson',
+        'date','duration',
+        'description','status',
         'event_type'
     ];
+
+    public function event_model(){
+        return $this->belongsTo('App\Models\EventType','event_type');
+    }
+    public function event_key_person(){
+        return $this->belongsTo('App\Models\User','keyperson');
+    }
 }

@@ -35,33 +35,33 @@
 </head>
 
 <body class="font-sans antialiased">
-    @include('layouts.navigation')
-    <main style="background: #205081;padding-bottom:100px">
-        <div class="container mx-auto">
-            <div class="flex h-full">
-                <div class="bg-white" style="min-height:1000px">
-                    @livewire('sidebar')
-                </div>
-                <div class="w-full bg-white">
-                   {{$slot}}
-                </div>
-
-            </div>
-
-           
+<div class="container mx-auto">
+    <livewire:appointments-calendar/>
 
 
-           
-            
-        </div>
-    </main>
-    <script src="https://unpkg.com/flowbite@1.4.6/dist/flowbite.js"></script>
+
+
+
+
+
+
+
+
+
+</div>
+
+
+  <script src="https://unpkg.com/flowbite@1.4.6/dist/flowbite.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     @livewireScripts
     @livewireCalendarScripts
 
-    
+    <script>
+    Livewire.on('editevent', function() {
+    alert('A post was added with the id of: ');
+    $('#large-modal').toggle();
+})
+    </script>
 
-    
 </body>
-
 </html>
