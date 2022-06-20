@@ -2,6 +2,7 @@
 
 namespace App\Http\Livewire;
 
+use App\Models\Step;
 use Livewire\Component;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
@@ -40,13 +41,13 @@ class Users extends Component
     public function store()
     {
 
-        $this->validate([
-            'name' => 'required',
-            'email' => 'required',
-            'role' => 'required',
-            'status' => 'requiredphp artisan storage:link
-            ',
-        ]);
+        // $this->validate([
+        //     'name' => 'required',
+        //     'email' => 'required',
+        //     'role' => 'required',
+        //     'status' => 'requiredphp artisan storage:link
+        //     ',
+        // ]);
         $password = Str::random(21);
 
         // if ($this->image instanceof UploadedFile) {
@@ -116,7 +117,7 @@ class Users extends Component
         } else {
             $user_info->update([
                 'name' => $this->name,
-                'email' => $this->email,    
+                'email' => $this->email,
                 'role' => $this->role,
                 'status' => $this->status,
                 'password' => $this->password,
@@ -127,5 +128,19 @@ class Users extends Component
 
         $this->clearInput();
         return redirect('/users');
+    }
+
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
+    public function delete_event()
+    {
+        $steps = Step::where('assigned_to',$this->deleteId)->get();
+        if(count($steps) == 0 ){
+            User::find($this->deleteId)->delete();
+        }else{
+            dd('cannot be deleted');
+        }
     }
 }

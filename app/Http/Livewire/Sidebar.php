@@ -22,7 +22,7 @@ class Sidebar extends Component
         $this->allsteps = DB::table('steps')->count();
         $this->allusers = DB::table('users')->count();
         $this->tasks = DB::table('tasks')
-            ->join('steps', 'tasks.id', '=', 'steps.task_id')
+            ->leftjoin('steps', 'tasks.id', '=', 'steps.task_id')
             ->select('tasks.*')
             ->where('assigned_to', Auth::user()->id)
             ->count();

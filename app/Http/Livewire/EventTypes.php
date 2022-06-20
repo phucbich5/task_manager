@@ -4,6 +4,7 @@ namespace App\Http\Livewire;
 
 use Livewire\Component;
 use App\Models\EventType;
+use App\Models\Event;
 
 class EventTypes extends Component
 {
@@ -54,7 +55,7 @@ class EventTypes extends Component
 
         $event_type_info = EventType::find($this->event_type_id);
         $this->validate([
-            'name' => 'required',
+            'name' => 'required', 
             'status' => 'required',
         ]);
 
@@ -65,4 +66,17 @@ class EventTypes extends Component
         $this->clearInput();
     }
 
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
+    public function delete_event()
+    {
+        $events = Event::where('event_type',$this->deleteId)->get();
+        if(count($events) == 0 ){
+            EventType::find($this->deleteId)->delete();
+        }else{
+            dd('cannot be deleted');
+        }
+    }
 }

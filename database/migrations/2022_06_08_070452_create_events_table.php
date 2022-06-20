@@ -22,7 +22,7 @@ class CreateEventsTable extends Migration
 
             $table->string('duration');
             $table->string('keyperson');
-
+            $table->string('location');
             $table->enum('status',[0,1])->default(0);
             $table->string('event_type');
             $table->timestamps();

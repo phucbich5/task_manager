@@ -12,7 +12,7 @@ class Event extends Model
         'title','keyperson',
         'date','duration',
         'description','status',
-        'event_type'
+        'event_type','location'
     ];
 
     public function event_model(){

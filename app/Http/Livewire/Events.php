@@ -15,13 +15,13 @@ class Events extends Component
     public $event_id;
 
 
-    
-    public $title,$description;
-    public $date,$duration,$keyperson;
 
-    public $status,$event_type;
-   
-   
+    public $title, $description,$location;
+    public $date, $duration, $keyperson;
+
+    public $status, $event_type;
+
+
     // public $event_type;
 
 
@@ -33,10 +33,11 @@ class Events extends Component
     public function render()
     {
         $this->events = DB::table('events')
-        ->join('event_types','events.id','=','event_types.id')
-        ->select('events.*','event_types.name')
-        ->orderBy('date', 'ASC')
-        ->get();
+            ->leftjoin('event_types', 'events.id', '=', 'event_types.id')
+            ->leftjoin('users', 'events.id', '=', 'users.id')
+            ->selectRaw('events.*, event_types.name as event_types_name , users.name as users_name')
+            ->orderBy('date', 'ASC')
+            ->get();
         $this->event_types = DB::table('event_types')->get();
         $this->users = User::all();
         return view('livewire.events');
@@ -48,11 +49,10 @@ class Events extends Component
         $this->description = '';
         $this->date = '';
         $this->keyperson = '';
-
         $this->duration = '';
         $this->status = '';
-
         $this->event_type = '';
+        $this->location = '';
         $this->updateMode = false;
     }
 
@@ -60,10 +60,10 @@ class Events extends Component
     {
         $this->validate([
             'title' => 'required',
-            'description'=>'required',
+            'description' => 'required',
             'date' => 'required',
             'keyperson' => 'required',
-            'duration'=>'required',
+            'duration' => 'required',
             'status' => 'required',
             'event_type' => 'required'
         ]);
@@ -73,11 +73,10 @@ class Events extends Component
             'title' => $this->title,
             'description' => $this->description,
             'date' => $this->date,
-
             'keyperson' => $this->keyperson,
             'duration' => $this->duration,
             'status' => $this->status,
-
+            'location' => $this->location,
             'event_type' => $this->event_type
         ]);
 
@@ -93,10 +92,11 @@ class Events extends Component
         $this->event_id = $event_info->id;
         $this->title = $event_info->title;
         $this->keyperson = $event_info->keyperson;
-        $this->date = $event_info->date;
+        $this->date = date('Y-m-d\TH:i', strtotime($event_info->date));
         $this->duration = $event_info->duration;
         $this->description = $event_info->description;
         $this->status = $event_info->status;
+        $this->location = $event_info->location;
         $this->event_type = $event_info->event_type;
     }
 
@@ -119,35 +119,19 @@ class Events extends Component
             'keyperson' => $this->keyperson,
             'date' => $this->date,
             'duration' => $this->duration,
-            'description' => $this->end_time,
+            'description' => $this->description,
             'status' => $this->status,
+            'location' => $this->location,
             'event_type' => $this->event_type
         ]);
         $this->clearInput();
     }
-
-    public function delete($id)
+    public function deleteId($id)
     {
+        $this->deleteId = $id;
     }
-  
-
-
-
-    public function render_event_types()
+    public function delete_event()
     {
-        $this->event_types = EventType::all();
-        return view('livewire.event_types');
-    }
-    public function store_event_type()
-    {
-        $this->validate([
-            'name'=>'required',
-            'status'=>'required',
-        ]);
-        Event::create([
-            'name' => $this->name,
-            'status' => $this->status,
-        ]);
-        $this->clearInput();
+        Event::find($this->deleteId)->delete();
     }
 }

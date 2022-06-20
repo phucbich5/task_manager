@@ -18,6 +18,7 @@ class Viewtasks extends Component
     // public $task_id;
     use AuthorizesRequests;
 
+    
     public function render()
     {
 

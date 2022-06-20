@@ -29,13 +29,13 @@ class Counttask extends Component
             return view('livewire.counttask');
         } else {
             $this->tasks_close = DB::table('tasks')
-                ->join('steps', 'tasks.id', '=', 'steps.task_id')
+                ->leftjoin('steps', 'tasks.id', '=', 'steps.task_id')
                 ->select('tasks.*')
                 ->where('tasks.status', '=', 'closed')
                 ->where('assigned_to', Auth::user()->id)
                 ->count();
             $this->tasks_open = DB::table('tasks')
-                ->join('steps', 'tasks.id', '=', 'steps.task_id')
+                ->leftjoin('steps', 'tasks.id', '=', 'steps.task_id')
                 ->select('tasks.*')
                 ->where('tasks.status', '=', 'open')
                 ->where('assigned_to', Auth::user()->id)

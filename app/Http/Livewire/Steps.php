@@ -18,6 +18,7 @@ class Steps extends Component
 {
     public $name, $task_id, $status, $assigned_to, $description, $deadline;
     public $updateMode = false;
+    public $deleteId ='';
     // public $steps;
     use AuthorizesRequests;
 
@@ -109,4 +110,14 @@ class Steps extends Component
         $this->clearInput();
         return redirect('/steps');
     }
+
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
+    public function delete_step()
+    {
+        Step::find($this->deleteId)->delete();
+    }
+
 }

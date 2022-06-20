@@ -4,18 +4,18 @@
     <div class="relative w-full h-full max-w-2xl p-4 md:h-auto h_form">
         <!-- Modal content -->
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <div class="w-full flex justify-between items-center px-10 py-5 border-b text-white bg-blue-600 rounded-t-lg">
+            <div
+                class="w-full flex justify-between items-center px-10 py-5 border-b text-white bg-blue-600 rounded-t-lg">
                 <h3 class="text-xl font-medium text-white">
                     @if ($updateMode)
                         Edit Step
                     @else
                         Add Step
                     @endif
-    
+
                 </h3>
                 <button type="button" onclick="location.href='/steps'"
-                class="text-white bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                    >
+                    class="text-white bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white">
                     <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path fill-rule="evenodd"
                             d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
@@ -23,7 +23,7 @@
                     </svg>
                 </button>
             </div>
-            
+
             <div class="px-6 py-6 lg:px-8">
                 <form class="space-y-4">
                     @if ($updateMode)
@@ -61,39 +61,40 @@
                         @enderror
                     </div>
                     @can('isAdmin')
-                    <div class="flex">
-                        <div class="mr-1 w-1/2">
-                            <label for="task_id"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Task Name</label>
-                            <select id="task_id" wire:model.defer="task_id"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="">--select--</option>
-                                @foreach ($tasks as $task)
-                                    <option value="{{ $task->id }}" selected>{{ $task->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('task_id')
-                                <span class="text-red-500 text-xs">{{ $message }}</span>
-                            @enderror
+                        <div class="flex">
+                            <div class="mr-1 w-1/2">
+                                <label for="task_id"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Task
+                                    Name</label>
+                                <select id="task_id" wire:model.defer="task_id"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="">--select--</option>
+                                    @foreach ($tasks as $task)
+                                        <option value="{{ $task->id }}" selected>{{ $task->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('task_id')
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                @enderror
+                            </div>
+                            <div class="ml-1 w-1/2">
+                                <label for="assigned_to"
+                                    class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                                    Assigned to
+                                </label>
+                                <select id="assigned_to" wire:model.defer="assigned_to"
+                                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                                    <option value="">--select--</option>
+                                    @foreach ($users as $user)
+                                        <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                                @error('assigned_to')
+                                    <span class="text-red-500 text-xs">{{ $message }}</span>
+                                @enderror
+                            </div>
                         </div>
-                        <div class="ml-1 w-1/2">
-                            <label for="assigned_to"
-                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                Assigned to
-                            </label>
-                            <select id="assigned_to" wire:model.defer="assigned_to"
-                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option value="">--select--</option>
-                                @foreach ($users as $user)
-                                    <option value="{{ $user->id }}" selected>{{ $user->name }}</option>
-                                @endforeach
-                            </select>
-                            @error('assigned_to')
-                                <span class="text-red-500 text-xs">{{ $message }}</span>
-                            @enderror
-                        </div>
-                    </div>
-                        
+
                         <div>
                             <label for="description"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Description</label>

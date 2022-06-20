@@ -35,8 +35,24 @@
 </head>
 
 <body class="font-sans antialiased">
-<div class="container mx-auto">
-    <livewire:appointments-calendar/>
+<div class="mx-auto container-fluid">
+
+
+<div class="grid grid-cols-2 gap-2 md:grid-cols-3">
+
+
+    <div class="col-span-2 px-6">
+        <livewire:appointments-calendar week-starts-at="1" pollMillis="500"       />
+    </div>
+    <div>
+        <h1 class="pt-4 mt-4 text-3xl font-black text-center">
+            Events
+        </h1>
+        <livewire:eventpreview/>
+    </div>
+
+</div>
+    
 
 
 

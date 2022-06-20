@@ -54,10 +54,10 @@
                         <td class="px-4 py-4 ">
                             {{ $st->name }}
                         </td>
+
                         <td class="px-4 py-4 ">
                             {{ $st->task_info->name }}
                         </td>
-
                         <td class="px-4 py-4 ">
                             @if ($st->status == 'review')
                                 <p class="p-1 text-xs text-white bg-purple-400 rounded-md px-2 border-0" name="status">

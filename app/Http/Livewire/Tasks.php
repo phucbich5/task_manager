@@ -6,6 +6,7 @@ use Livewire\Component;
 
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Event;
 use App\Models\Step;
 use App\Http\Livewire\Viewtasks;
 use Illuminate\Support\Facades\DB;
@@ -39,18 +40,18 @@ class Tasks extends Component
         if (Gate::allows('isAdmin')) {
             $users = DB::table('users')->get();
             $tasks = DB::table('tasks')->orderBy('deadline', 'asc')
-            ->paginate(5);
-            return view('tasks.index',compact('users','tasks'));
+                ->paginate(5);
+            return view('tasks.index', compact('users', 'tasks'));
         } else {
 
             $users = DB::table('users')->get();
             $tasks = DB::table('tasks')
-                ->join('steps', 'tasks.id', '=', 'steps.task_id')
+                ->leftjoin('steps', 'tasks.id', '=', 'steps.task_id')
                 ->select('tasks.*')
                 ->where('assigned_to', Auth::user()->id)
                 ->orderBy('deadline', 'asc')
                 ->paginate(5);
-            return view('tasks.index',compact('users','tasks'));
+            return view('tasks.index', compact('users', 'tasks'));
         }
     }
 
@@ -69,7 +70,7 @@ class Tasks extends Component
         $this->validate([
             'name' => 'required',
             'description' => 'required',
-            'deadline'=>'required',
+            'deadline' => 'required',
             'status' => 'required'
         ]);
         Task::create([
@@ -93,7 +94,6 @@ class Tasks extends Component
         $this->description = $task_info->description;
         $this->deadline = str_replace(' ', 'T', $task_info->deadline);
         $this->status = $task_info->status;
-
     }
 
     public function update()
@@ -178,7 +178,6 @@ class Tasks extends Component
         $this->inputs = [];
         $this->clearInputStep();
         return redirect('/task');
-        
     }
     public function show_task($id)
     {
@@ -194,6 +193,19 @@ class Tasks extends Component
 
         // dd($steps);
         return view('tasks.show', compact('tasks', 'steps'));
-        
+    }
+    public function deleteId($id)
+    {
+        $this->deleteId = $id;
+    }
+    public function delete_event()
+    {
+        // delete task
+        Task::find($this->deleteId)->delete();
+        // delete step
+        $steps = Step::where('task_id',$this->deleteId)->get();
+        foreach($steps as $step){
+            Step::find($step->id)->delete();
+        }
     }
 }

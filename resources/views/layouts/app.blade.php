@@ -37,12 +37,12 @@
 <body class="font-sans antialiased">
     @include('layouts.navigation')
     <main style="background: #205081;padding-bottom:100px">
-        <div class="container mx-auto">
+        <div class="mx-auto container-fluid">
             <div class="flex h-full">
                 <div class="bg-white" style="min-height:1000px">
                     @livewire('sidebar')
                 </div>
-                <div class="w-full bg-white">
+                <div class="w-full bg-white" style="border-right: 5px solid #205081;">
                    {{$slot}}
                 </div>
 

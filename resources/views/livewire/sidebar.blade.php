@@ -1,5 +1,5 @@
-<aside class="h-full sidebar" aria-label="Sidebar" wire:poll>
-    <div class="overflow-y-auto py-10 bg-gray-50 rounded dark:bg-gray-800 h-full text-left" style="background:#f3f4f6">
+<aside class="h-full sidebar" aria-label="Sidebar" >
+    <div class="overflow-y-auto py-10 bg-gray-50 rounded dark:bg-gray-800 h-full text-left" style="background:#205081;margin-top:-5px">
         <ul class="space-y-2 tab">
             <li class="@if (Request::path() == 'profile') visited @endif">
                 <a href="/profile" class="flex"

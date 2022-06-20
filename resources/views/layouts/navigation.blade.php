@@ -7,17 +7,22 @@
     .sidebar ul li a {
         padding: 20px 30px;
         font-weight: bold;
+        color:#fff;
+    }
+    .sidebar ul li a svg{
+        color:#fff;
     }
 
+
     .visited {
-        color: #205081 !important;
-        background: #205081;
+        color: #fff !important;
+        background: #fff;
 
     }
 
     .visited a,
     .visited svg {
-        color: #fff !important;
+        color: #205081 !important;
 
     }
 
@@ -29,7 +34,7 @@
 <nav x-data="{ open: false }" class="bg-white border-b border-gray-100 shadow"
     style="background: #205081;border-bottom: 1px solid #a5bed6; color:#fff;">
     <!-- Primary Navigation Menu -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto px-4 container-fluid">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
