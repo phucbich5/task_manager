@@ -42,7 +42,6 @@ class DatabaseSeeder extends Seeder
         }
 
         $users = [
-<<<<<<< HEAD
             ['name' => 'Praven Siri', 'email' => 'admin@mediastep.com', 'role' => 'admin', 'status' => '1', 'password' => '12345678', 'image' => '1'],
             ['name' => 'Nguyen Phuc Bich', 'email' => 'bich.phuc@mediastep.com', 'role' => 'admin', 'status' => '1', 'password' => '12345678', 'image' => '2'],
             ['name' => 'Nguyen Hoai Lam', 'email' => 'designer@mediastep.com', 'role' => 'designer', 'status' => '1', 'password' => '12345678', 'image' => '2'],
@@ -51,16 +50,6 @@ class DatabaseSeeder extends Seeder
 
         foreach ($users as $user) {
 
-=======
-            ['name' => 'Praven Siri', 'email' => 'admin@mediastep.com', 'role' => 'admin', 'status' => '1', 'password' => '12345678', 'image' => 'public/EMJ4SgDmVNrSV7mbnL2wmygqa5yxOFRCbX9vZL55.jpg'],
-            ['name' => 'Nguyen Phuc Bich', 'email' => 'dev@mediastep.com', 'role' => 'developer', 'status' => '1', 'password' => '12345678', 'image' => 'public/hudOocLHtZ0Fx2w8q8qn0esfLm5TCqpnatCy2N3q.jpg'],
-            ['name' => 'Nguyen Hoai Lam', 'email' => 'designer@mediastep.com', 'role' => 'designer', 'status' => '1', 'password' => '12345678', 'image' => 'public/iDpPpR0qC1QlGuM0y2SnsCUJB474HZwVD9QbiWwb.jpg'],
-            ['name' => 'Tien Nam', 'email' => 'content@mediastep.com', 'role' => 'content_writer', 'status' => '1', 'password' => '12345678', 'image' => 'public/iDpPpR0qC1QlGuM0y2SnsCUJB474HZwVD9QbiWwb.jpg'],
-        ];
-
-        foreach ($users as $user) {
-
->>>>>>> 208e7fb625f737de22fb867fe113b05a44f35465
             $data_exits = DB::table('users')->where('name', $user['name'])->count();
 
             if ($data_exits == 0) {
@@ -89,19 +78,11 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Taks 10', 'description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed numquam magni illum reiciendis facere dolor blanditiis, consequuntur perspiciatis rerum nostrum? Fugiat soluta dolore accusantium aperiam totam aliquid asperiores assumenda omnis?', 'deadline' => '2022-06-14 10:24:00', 'status' => '1'],
             ['name' => 'Taks 11', 'description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed numquam magni illum reiciendis facere dolor blanditiis, consequuntur perspiciatis rerum nostrum? Fugiat soluta dolore accusantium aperiam totam aliquid asperiores assumenda omnis?', 'deadline' => '2022-06-14 10:24:00', 'status' => '1'],
         ];
-<<<<<<< HEAD
 
         foreach ($tasks as $task) {
 
             $data_exits = DB::table('tasks')->where('name', $task['name'])->count();
 
-=======
-
-        foreach ($tasks as $task) {
-
-            $data_exits = DB::table('tasks')->where('name', $task['name'])->count();
-
->>>>>>> 208e7fb625f737de22fb867fe113b05a44f35465
             if ($data_exits == 0) {
                 DB::table('tasks')->insert([
                     'name' => $task['name'],
@@ -130,19 +111,11 @@ class DatabaseSeeder extends Seeder
             ['name' => 'Step 11', 'assigned_to' => '3', 'task_id' => '3', 'description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed numquam magni illum reiciendis facere dolor blanditiis, consequuntur perspiciatis rerum nostrum? Fugiat soluta dolore accusantium aperiam totam aliquid asperiores assumenda omnis?', 'deadline' => '2022-06-14 10:24:00', 'status' => '2'],
             ['name' => 'Step 12', 'assigned_to' => '4', 'task_id' => '4', 'description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Sed numquam magni illum reiciendis facere dolor blanditiis, consequuntur perspiciatis rerum nostrum? Fugiat soluta dolore accusantium aperiam totam aliquid asperiores assumenda omnis?', 'deadline' => '2022-06-14 10:24:00', 'status' => '3'],
         ];
-<<<<<<< HEAD
 
         foreach ($steps as $step) {
 
             $data_exits = DB::table('steps')->where('name', $step['name'])->count();
 
-=======
-
-        foreach ($steps as $step) {
-
-            $data_exits = DB::table('steps')->where('name', $step['name'])->count();
-
->>>>>>> 208e7fb625f737de22fb867fe113b05a44f35465
             if ($data_exits == 0) {
                 DB::table('steps')->insert([
                     'name' => $step['name'],
@@ -158,7 +131,6 @@ class DatabaseSeeder extends Seeder
         }
         
 
-<<<<<<< HEAD
         // $events = [
         //     ['title' => 'workshop export', 'duration' => '2', 'event_type' => '1',  'keyperson' => '1', 'description' => 'workshop goxport 1', 'date' => '2022-06-14 10:24:00', 'status' => '1'],
         // ];
@@ -181,29 +153,5 @@ class DatabaseSeeder extends Seeder
         //         ]);
         //     }
         // }
-=======
-        $events = [
-            ['title' => 'workshop export', 'duration' => '2', 'event_type' => '1',  'keyperson' => '1', 'description' => 'workshop goxport 1', 'date' => '2022-06-14 10:24:00', 'status' => '1'],
-        ];
-
-        foreach ($events as $event) {
-
-            $data_exits = DB::table('events')->where('title', $event['title'])->count();
-
-            if ($data_exits == 0) {
-                DB::table('events')->insert([
-                    'title' => $event['title'],
-                    'description' => $event['description'],
-                    'date' => $event['date'],
-                    'duration' => $event['duration'],
-                    'keyperson' => $event['keyperson'],
-                    'status' => $event['status'],
-                    'event_type' => $event['event_type'],
-                    'created_at' => date('Y-m-d H:i:s'),
-                    'updated_at' => date('Y-m-d H:i:s'),
-                ]);
-            }
-        }
->>>>>>> 208e7fb625f737de22fb867fe113b05a44f35465
     }
 }

@@ -86,7 +86,7 @@
                                                 <div
                                                     class="flex justify-between items-start p-4 rounded-t border-b dark:border-gray-600">
                                                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                                        Are you sure want to delete event type <span
+                                                        Are you sure want to delete user <span
                                                             class="text-blue-500">{{ $user->name }}</span> ?
                                                     </h3>
                                                     <button type="button"

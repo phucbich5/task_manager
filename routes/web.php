@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Mail;
 */
 
 Route::get('/', function () {
-    return view('/tasks');
+    return view('/welcome');
 });
 
 Route::get('/dashboard', function () {

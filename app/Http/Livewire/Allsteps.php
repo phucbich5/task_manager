@@ -56,7 +56,7 @@ class Allsteps extends Component
                 'status' => $this->status,
                 'deadline' => $this->deadline,
             ]);
-        } else {
+        } else {    
             $step_info->update([
                 'status' => $this->status
             ]);
